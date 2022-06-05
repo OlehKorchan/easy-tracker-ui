@@ -1,0 +1,10 @@
+<mat-card>
+  <mat-card-title>Your amount</mat-card-title>
+  <mat-card-subtitle
+    >Available money: {{ user.amount | currency }}</mat-card-subtitle
+  >
+  <mat-card-actions>
+    <button mat-button (click)="openIncomeForm()">Add income</button>
+    <button mat-button>Add expenses</button>
+  </mat-card-actions>
+</mat-card>

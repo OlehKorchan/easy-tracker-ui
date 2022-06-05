@@ -1,0 +1,61 @@
+<h1 mat-dialog-title>Add income</h1>
+<div mat-dialog-content>
+  <form
+    (ngSubmit)="onSubmit()"
+    class="form col-md-4"
+    #form="ngForm"
+    ngNativeValidate
+  >
+    <mat-error class="mb-3" [hidden]="!hasErrors">
+      Errors occurred:
+      <ul>
+        <li *ngFor="let httpError of errorMessages">
+          {{ httpError }}
+        </li>
+      </ul>
+    </mat-error>
+    <mat-error class="mb-3" [hidden]="!incomeCreateResponse.errors?.length">
+      Validation errors occurred:
+      <li *ngFor="let validationError of incomeCreateResponse.errors">
+        {{ validationError }}
+      </li>
+    </mat-error>
+    <mat-form-field class="full-width mb-3" appearance="fill">
+      <mat-label>Amount</mat-label>
+      <input
+        matInput
+        type="number"
+        [(ngModel)]="incomeCreateRequest.amount"
+        name="amount"
+        id="amount"
+        required
+        min="1"
+        max="1000000000000"
+        #amountField="ngModel"
+        placeholder="Amount"
+      />
+      <mat-error [hidden]="amountField.valid || amountField.untouched">
+        Please, specify a valid amount
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width mb-3" appearance="fill">
+      <mat-label>Comment</mat-label>
+      <textarea
+        [(ngModel)]="incomeCreateRequest.comment"
+        name="comment"
+        id="comment"
+        matInput
+        maxlength="300"
+        #commentField="ngModel"
+      ></textarea>
+      <mat-error [hidden]="commentField.valid || commentField.untouched">
+        Please, specify a valid comment
+      </mat-error>
+    </mat-form-field>
+    <div class="row mb-3 justify-content-center">
+      <div class="col-md-4">
+        <button type="submit" mat-raised-button color="primary">Add</button>
+      </div>
+    </div>
+  </form>
+</div>

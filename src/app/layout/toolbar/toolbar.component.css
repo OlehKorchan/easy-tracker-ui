@@ -1,0 +1,13 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+.sidenav-toggle {
+  display: none;
+}
+
+@media screen and (max-width: 720px) {
+  .sidenav-toggle {
+    display: flex;
+  }
+}

@@ -1,0 +1,21 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #sideNav
+    [mode]="isScreenSmall ? 'over' : 'side'"
+    [opened]="!isScreenSmall"
+    class="sidenav mat-elevation-z10"
+    [hidden]="!isUserLoggedIn"
+  >
+    <mat-toolbar color="primary">Menu</mat-toolbar>
+    <mat-list>
+      <a mat-list-item [routerLink]="['/statistics']">Statistics</a>
+      <a mat-list-item [routerLink]="['/income-history']">Income history</a>
+    </mat-list>
+  </mat-sidenav>
+  <mat-sidenav-content class="sidenav-content">
+    <app-toolbar (toggleSidenav)="sideNav.toggle()"></app-toolbar>
+    <div class="container text-center">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

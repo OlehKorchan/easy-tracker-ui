@@ -1,0 +1,43 @@
+<mat-toolbar color="primary" class="mb-3">
+  <button
+    *ngIf="isUserLoggedIn"
+    class="sidenav-toggle"
+    mat-button
+    (click)="toggleSidenav.emit()"
+  >
+    <mat-icon> menu </mat-icon>
+  </button>
+  <a class="text-decoration-none text-reset" [routerLink]="['/']">
+    Easy-Tracker
+  </a>
+  <span class="spacer"></span>
+  <span *ngIf="!isUserLoggedIn">
+    <button
+      class="mx-2"
+      mat-raised-button
+      color="accent"
+      [routerLink]="['/register']"
+    >
+      Register
+    </button>
+    <button
+      class="mx-2"
+      mat-raised-button
+      color="accent"
+      [routerLink]="['/login']"
+    >
+      Login
+    </button>
+  </span>
+  <span *ngIf="isUserLoggedIn" class="mx-2">
+    <button mat-raised-button color="accent" [matMenuTriggerFor]="menu">
+      Profile
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        {{ userName }}
+      </button>
+      <button mat-menu-item><app-logout></app-logout></button>
+    </mat-menu>
+  </span>
+</mat-toolbar>

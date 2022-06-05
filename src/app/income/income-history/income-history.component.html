@@ -1,0 +1,35 @@
+<mat-table
+  [dataSource]="incomeListResponse.userSalaries"
+  class="mat-elevation-z8"
+>
+  <ng-container matColumnDef="date">
+    <mat-header-cell *matHeaderCellDef> DateAdded </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      {{ element.dateAdded | date }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="amount">
+    <mat-header-cell *matHeaderCellDef> Amount </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      {{ element.amount | currency }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="comment">
+    <mat-header-cell *matHeaderCellDef> Comment </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.comment }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="action">
+    <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <button mat-icon-button color="warn" (click)="deleteIncome(element.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>

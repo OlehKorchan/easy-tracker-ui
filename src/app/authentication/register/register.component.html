@@ -1,0 +1,81 @@
+<div class="row justify-content-center">
+  <form
+    (ngSubmit)="onSubmit()"
+    class="form col-md-4"
+    #form="ngForm"
+    ngNativeValidate
+  >
+    <mat-error class="mb-3" [hidden]="!hasErrors">
+      Errors occurred:
+      <ul>
+        <li *ngFor="let httpError of errorMessages">
+          {{ httpError }}
+        </li>
+      </ul>
+    </mat-error>
+    <mat-error class="mb-3" [hidden]="!registerResponse.errors?.length">
+      Validation errors occurred:
+      <li *ngFor="let validationError of registerResponse.errors">
+        {{ validationError }}
+      </li>
+    </mat-error>
+    <mat-form-field class="full-width mb-3" appearance="fill">
+      <mat-label>Username</mat-label>
+      <input
+        type="text"
+        [(ngModel)]="registerRequest.userName"
+        name="userName"
+        id="username"
+        matInput
+        required
+        placeholder="Username"
+        #userNameField="ngModel"
+      />
+      <mat-error [hidden]="userNameField.valid || userNameField.untouched">
+        Please, specify a valid username
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width mb-3" appearance="fill">
+      <mat-label>Password</mat-label>
+      <input
+        type="password"
+        [(ngModel)]="registerRequest.password"
+        name="password"
+        id="password"
+        matInput
+        required
+        #passwordField="ngModel"
+      />
+      <mat-error [hidden]="passwordField.valid || passwordField.untouched">
+        Please, specify a valid password
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width mb-3" appearance="fill">
+      <mat-label>Confirm password</mat-label>
+      <input
+        type="password"
+        [(ngModel)]="registerRequest.passwordConfirm"
+        name="passwordConfirm"
+        id="password-confirm"
+        (ngModelChange)="
+          validateConfirmPassword(passwordField, confirmPasswordField)
+        "
+        matInput
+        required
+        #confirmPasswordField="ngModel"
+      />
+      <mat-error
+        [hidden]="confirmPasswordField.valid || confirmPasswordField.untouched"
+      >
+        Passwords does't match
+      </mat-error>
+    </mat-form-field>
+    <div class="row mb-3 justify-content-center">
+      <div class="col-md-4">
+        <button type="submit" mat-raised-button color="primary">
+          Register
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
