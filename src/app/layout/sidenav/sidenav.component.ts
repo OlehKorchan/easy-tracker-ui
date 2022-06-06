@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { AuthenticationService } from 'src/app/authentication/authentication.service';
+import { MatSidenav } from '@angular/material/sidenav';
 
 const SMALL_WIDTH_BREAKPOINT = 720;
 
@@ -10,7 +11,7 @@ const SMALL_WIDTH_BREAKPOINT = 720;
   styleUrls: ['./sidenav.component.css'],
 })
 export class SidenavComponent implements OnInit {
-  @ViewChild('sideNav') sideNav: ElementRef | undefined;
+  @ViewChild('sideNav') sideNav: MatSidenav | undefined;
   isScreenSmall: boolean = false;
 
   constructor(
@@ -31,8 +32,8 @@ export class SidenavComponent implements OnInit {
   }
 
   toggleSidenav() {
-    if (this.sideNav instanceof ElementRef) {
-      this.sideNav.nativeElement.toggle();
+    if (this.sideNav instanceof MatSidenav) {
+      this.sideNav.toggle();
     }
   }
 }

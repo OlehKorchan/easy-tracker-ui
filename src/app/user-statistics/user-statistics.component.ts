@@ -24,12 +24,18 @@ export class UserStatisticsComponent implements OnInit, OnDestroy {
   ) {}
 
   openIncomeForm() {
-    this.dialog.open(IncomeFormComponent, {
+    const dialogItem = this.dialog.open(IncomeFormComponent, {
       width: '240px',
     });
+
+    dialogItem.afterClosed().subscribe(() => this.loadUserStatistics());
   }
 
-  ngOnInit(): void {
+  statisticsChanged() {
+    this.loadUserStatistics();
+  }
+
+  loadUserStatistics() {
     this.userSubscription = this.userService.getUserAmount().subscribe({
       next: (result) => {
         this.user = result;
@@ -39,6 +45,10 @@ export class UserStatisticsComponent implements OnInit, OnDestroy {
         this.errors.push(error?.error?.errorMessage);
       },
     });
+  }
+
+  ngOnInit(): void {
+    this.loadUserStatistics();
   }
 
   ngOnDestroy(): void {
