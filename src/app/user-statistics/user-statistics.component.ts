@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { IncomeFormComponent } from '../income/income-form/income-form.component';
-import { IUserResponse } from './user-response';
+import { IUserResponse } from '../models/user-response';
 import { UserStatisticsService } from './user-statistics.service';
 
 @Component({
@@ -12,6 +12,7 @@ import { UserStatisticsService } from './user-statistics.service';
 export class UserStatisticsComponent implements OnInit, OnDestroy {
   user: IUserResponse = {
     amount: 0,
+    errors: [],
   };
   isError = false;
   errors: string[] = [];

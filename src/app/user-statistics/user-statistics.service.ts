@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { ConfigurationService } from '../shared/configuration.service';
-import { IUserResponse } from './user-response';
+import { IUserResponse } from '../models/user-response';
 
 @Injectable({
   providedIn: 'root',

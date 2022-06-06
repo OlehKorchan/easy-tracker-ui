@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap, catchError, throwError } from 'rxjs';
 import { ConfigurationService } from '../shared/configuration.service';
-import { IIncomeResponse } from './models/income-response';
-import { IIncomeCreateRequest } from './models/income-create.request';
-import { IIncomeListResponse } from './models/income-list-response';
+import { IIncomeResponse } from '../models/income-response';
+import { IIncomeCreateRequest } from '../models/income-create.request';
+import { IIncomeListResponse } from '../models/income-list-response';
 import { IncomeModule } from './income.module';
 
 @Injectable({

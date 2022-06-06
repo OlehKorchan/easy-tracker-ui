@@ -1,4 +1,4 @@
-import { IResponse } from '../../shared/response';
+import { IResponse } from '../../models/response';
 
 export interface IRegisterResponse extends IResponse {
   username: string;

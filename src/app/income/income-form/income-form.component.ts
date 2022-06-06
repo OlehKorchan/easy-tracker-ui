@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { IIncomeResponse } from '../models/income-response';
-import { IIncomeCreateRequest } from '../models/income-create.request';
+import { IIncomeResponse } from '../../models/income-response';
+import { IIncomeCreateRequest } from '../../models/income-create.request';
 import { MatDialogRef } from '@angular/material/dialog';
 import { IncomeService } from '../income.service';
 import { Subscription } from 'rxjs';

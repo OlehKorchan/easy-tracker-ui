@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { IncomeService } from '../income.service';
-import { IIncomeListResponse } from '../models/income-list-response';
+import { IIncomeListResponse } from '../../models/income-list-response';
 
 @Component({
   selector: 'app-income-history',
