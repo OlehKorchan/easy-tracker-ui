@@ -6,7 +6,7 @@ import { AuthenticationService } from 'src/app/authentication/authentication.ser
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.css'],
 })
-export class ToolbarComponent implements OnInit {
+export class ToolbarComponent {
   @Output() toggleSidenav = new EventEmitter<void>();
   constructor(private _authenticationService: AuthenticationService) {}
 
@@ -19,6 +19,4 @@ export class ToolbarComponent implements OnInit {
   get userName(): string {
     return this._authenticationService.getUserName();
   }
-
-  ngOnInit(): void {}
 }

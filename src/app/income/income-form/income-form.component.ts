@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './income-form.component.html',
   styleUrls: ['./income-form.component.css'],
 })
-export class IncomeFormComponent implements OnInit, OnDestroy {
+export class IncomeFormComponent implements OnDestroy {
   incomeCreateRequest: IIncomeCreateRequest = {
     amount: 0,
     comment: '',
@@ -52,8 +52,6 @@ export class IncomeFormComponent implements OnInit, OnDestroy {
         },
       });
   }
-
-  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.incomeResponseSub$?.unsubscribe();

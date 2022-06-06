@@ -10,7 +10,7 @@ import { IRegisterResponse } from './register-response';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
 })
-export class RegisterComponent implements OnInit, OnDestroy {
+export class RegisterComponent implements OnDestroy {
   registerRequest: IRegisterRequest = {
     userName: '',
     password: '',
@@ -70,8 +70,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
       confirmPasswordField.control.setErrors({ duplicate: true });
     }
   }
-
-  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     if (this.registerResultSubscription) {

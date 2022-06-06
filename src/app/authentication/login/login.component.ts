@@ -4,13 +4,12 @@ import { AuthenticationService } from '../authentication.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { ILoginRequest } from './login-request';
-import { NgModel } from '@angular/forms';
 
 @Component({
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnDestroy {
   loginRequest: ILoginRequest = {
     login: '',
     password: '',
@@ -60,8 +59,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.hasErrors = true;
     this.errorMessages.push(error?.error?.errorMessage);
   }
-
-  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     if (this.loginResultSubscription) {
