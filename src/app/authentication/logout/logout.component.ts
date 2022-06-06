@@ -16,6 +16,6 @@ export class LogoutComponent {
   logout(): void {
     this._authenticationService
       .logout()
-      .subscribe(() => this._router.navigate(['']));
+      .subscribe((data) => this._router.navigate(['']));
   }
 }
