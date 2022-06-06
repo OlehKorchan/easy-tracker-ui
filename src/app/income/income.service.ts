@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { tap } from 'rxjs';
+import { tap, catchError, throwError } from 'rxjs';
 import { ConfigurationService } from '../shared/configuration.service';
 import { IIncomeResponse } from './models/income-response';
 import { IIncomeCreateRequest } from './models/income-create.request';
@@ -22,7 +22,11 @@ export class IncomeService {
         incomeCreateRequest
       )
       .pipe(
-        tap((data) => console.log('Income created: ' + JSON.stringify(data)))
+        tap((data) => console.log('Income created: ' + JSON.stringify(data))),
+        catchError((error) => {
+          console.log(error?.error?.errorMessage);
+          return throwError(() => error);
+        })
       );
   }
 

@@ -4,6 +4,7 @@ import { IIncomeCreateRequest } from '../models/income-create.request';
 import { MatDialogRef } from '@angular/material/dialog';
 import { IncomeService } from '../income.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './income-form.component.html',
@@ -27,7 +28,8 @@ export class IncomeFormComponent implements OnInit, OnDestroy {
 
   constructor(
     public dialogRef: MatDialogRef<IncomeFormComponent>,
-    private incomeService: IncomeService
+    private incomeService: IncomeService,
+    private router: Router
   ) {}
 
   onSubmit() {
@@ -37,7 +39,11 @@ export class IncomeFormComponent implements OnInit, OnDestroy {
     this.incomeResponseSub$ = this.incomeService
       .addIncome(this.incomeCreateRequest)
       .subscribe({
-        next: (data: IIncomeResponse) => (this.incomeCreateResponse = data),
+        next: (data) => {
+          if (!this.incomeCreateResponse.errors.length) {
+            this.dialogRef.close();
+          }
+        },
         error: (error) => {
           this.hasErrors = true;
           this.errorMessages.push(error?.error?.errorMessage);
@@ -45,8 +51,6 @@ export class IncomeFormComponent implements OnInit, OnDestroy {
           console.log(error?.error?.errorMessage);
         },
       });
-
-    this.dialogRef.close();
   }
 
   ngOnInit(): void {}
