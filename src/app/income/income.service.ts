@@ -5,9 +5,10 @@ import { ConfigurationService } from '../shared/configuration.service';
 import { IIncomeResponse } from './models/income-response';
 import { IIncomeCreateRequest } from './models/income-create.request';
 import { IIncomeListResponse } from './models/income-list-response';
+import { IncomeModule } from './income.module';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: IncomeModule,
 })
 export class IncomeService {
   constructor(
