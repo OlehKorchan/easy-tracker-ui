@@ -28,7 +28,11 @@ export class UserStatisticsComponent implements OnInit, OnDestroy {
       width: '240px',
     });
 
-    dialogItem.afterClosed().subscribe(() => this.loadUserStatistics());
+    dialogItem.afterClosed().subscribe((data) => {
+      if (data === 'ok') {
+        this.loadUserStatistics();
+      }
+    });
   }
 
   statisticsChanged() {

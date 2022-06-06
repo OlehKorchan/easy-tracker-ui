@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { ConfigurationService } from '../shared/configuration.service';
 import { IUserResponse } from './user-response';
-import { UserStatisticsComponent } from './user-statistics.component';
 
 @Injectable({
   providedIn: 'root',

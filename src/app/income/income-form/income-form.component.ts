@@ -41,7 +41,7 @@ export class IncomeFormComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (data) => {
           if (!this.incomeCreateResponse.errors.length) {
-            this.dialogRef.close();
+            this.dialogRef.close('ok');
           }
         },
         error: (error) => {
