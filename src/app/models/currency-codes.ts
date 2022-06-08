@@ -1,4 +1,6 @@
 export enum CurrencyCodes {
-  USD,
   UAH,
+  USD,
+  EUR,
+  GBP,
 }

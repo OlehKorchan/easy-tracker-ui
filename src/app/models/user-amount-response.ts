@@ -1,5 +1,5 @@
 import { IResponse } from './response';
 
-export interface IUserResponse extends IResponse {
+export interface IUserAmountResponse extends IResponse {
   amount: number;
 }

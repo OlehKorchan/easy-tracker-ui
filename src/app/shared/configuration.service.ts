@@ -27,6 +27,14 @@ export class ConfigurationService {
     return 'user/amount';
   }
 
+  getUserMainCurrencyUrl(): string {
+    return 'user/main-currency';
+  }
+
+  getUserStatisticsUrl(): string {
+    return 'user/statistics';
+  }
+
   getSalariesUrl(): string {
     return 'salaries';
   }

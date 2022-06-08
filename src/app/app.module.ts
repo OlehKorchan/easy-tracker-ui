@@ -14,6 +14,7 @@ import { SharedModule } from './shared/shared.module';
 import { CategoryModule } from './category/category.module';
 import { UserStatisticsModule } from './user-statistics/user-statistics.module';
 import { IncomeModule } from './income/income.module';
+import { CurrencySelectComponent } from './currency-select/currency-select.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { IncomeModule } from './income/income.module';
     SidenavComponent,
     ToolbarComponent,
     WelcomeComponent,
+    CurrencySelectComponent,
   ],
   imports: [
     CategoryModule,

@@ -3,29 +3,33 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { IncomeFormComponent } from '../income/income-form/income-form.component';
 import { CurrencyCodes } from '../models/currency-codes';
-import { IUserResponse } from '../models/user-response';
-import { UserStatisticsService } from './user-statistics.service';
+import { IUserStatisticsResponse } from '../models/user-statistics-response';
+import { UserService } from './user.service';
 
 @Component({
   templateUrl: './user-statistics.component.html',
   styleUrls: ['./user-statistics.component.css'],
 })
 export class UserStatisticsComponent implements OnInit, OnDestroy {
-  currentCurrencyCode: string = CurrencyCodes[CurrencyCodes.USD];
-  oldCurrencyCode: string = CurrencyCodes[CurrencyCodes.USD];
-  user: IUserResponse = {
+  user: IUserStatisticsResponse = {
     amount: 0,
     errors: [],
+    mainCurrency: CurrencyCodes.USD,
+    salaries: [],
+    spendingCategories: [],
   };
+  showBalanceInCurrency!: CurrencyCodes;
   isError = false;
   errors: string[] = [];
+  allCurrencies: string[];
 
   userSubscription!: Subscription;
+  userAmountSubscription!: Subscription;
+  userMainCurrencySubscription!: Subscription;
 
-  constructor(
-    private userService: UserStatisticsService,
-    public dialog: MatDialog
-  ) {}
+  constructor(private userService: UserService, public dialog: MatDialog) {
+    this.allCurrencies = userService.getCurrenciesList();
+  }
 
   openIncomeForm() {
     const dialogItem = this.dialog.open(IncomeFormComponent, {
@@ -39,29 +43,65 @@ export class UserStatisticsComponent implements OnInit, OnDestroy {
     });
   }
 
-  statisticsChanged() {
-    this.loadUserStatistics();
+  incomeAdded() {
+    this.loadUserAmount();
+  }
+
+  currencyChanged() {
+    this.loadUserMainCurrency();
+  }
+
+  convertCurrencyCodeToString(code: CurrencyCodes): string {
+    return CurrencyCodes[code];
   }
 
   loadUserStatistics() {
-    this.userSubscription = this.userService.getUserAmount().subscribe({
+    this.clearError();
+
+    this.userSubscription = this.userService.getUserStatistics().subscribe({
       next: (result) => {
         this.user = result;
+        this.showBalanceInCurrency = this.user.mainCurrency;
       },
-      error: (error) => {
-        this.isError = true;
-        this.errors.push(error?.error?.errorMessage);
-      },
+      error: (error) => this.setError(error),
     });
   }
 
-  changeCurrency() {
-    this.user.amount = this.userService.exchangeMoney(
-      this.oldCurrencyCode,
-      this.currentCurrencyCode,
-      this.user.amount
-    );
-    this.oldCurrencyCode = this.currentCurrencyCode;
+  loadUserAmount() {
+    this.clearError();
+
+    this.userAmountSubscription = this.userService.getUserAmount().subscribe({
+      next: (result) => {
+        this.user.amount = result.amount;
+      },
+      error: (error) => this.setError(error),
+    });
+  }
+
+  loadUserMainCurrency() {
+    this.clearError();
+
+    this.userMainCurrencySubscription = this.userService
+      .getUserMainCurrency()
+      .subscribe({
+        next: (result) => {
+          this.user.mainCurrency = result.mainCurrency;
+          this.showBalanceInCurrency = result.mainCurrency;
+        },
+        error: (error) => this.setError(error),
+      });
+  }
+
+  changeCurrency() {}
+
+  clearError() {
+    this.errors = [];
+    this.isError = false;
+  }
+
+  setError(error: any) {
+    this.isError = true;
+    this.errors.push(JSON.stringify(error));
   }
 
   ngOnInit(): void {
@@ -70,5 +110,7 @@ export class UserStatisticsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.userSubscription.unsubscribe();
+    this.userAmountSubscription?.unsubscribe();
+    this.userMainCurrencySubscription?.unsubscribe();
   }
 }
