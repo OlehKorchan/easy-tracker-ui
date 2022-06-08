@@ -9,11 +9,10 @@ import { AuthenticationModule } from './authentication/authentication.module';
 import { SidenavComponent } from './layout/sidenav/sidenav.component';
 import { ToolbarComponent } from './layout/toolbar/toolbar.component';
 import { WelcomeComponent } from './welcome/welcome.component';
-import { UserStatisticsComponent } from './user-statistics/user-statistics.component';
-import { AuthenticationGuard } from './authentication/authentication.guard';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { SharedModule } from './shared/shared.module';
-import { IncomeFormComponent } from './income/income-form/income-form.component';
+import { CategoryModule } from './category/category.module';
+import { UserStatisticsModule } from './user-statistics/user-statistics.module';
 import { IncomeModule } from './income/income.module';
 
 @NgModule({
@@ -22,19 +21,15 @@ import { IncomeModule } from './income/income.module';
     SidenavComponent,
     ToolbarComponent,
     WelcomeComponent,
-    UserStatisticsComponent,
-    IncomeFormComponent,
   ],
   imports: [
+    CategoryModule,
     SharedModule,
     BrowserModule,
     HttpClientModule,
+    UserStatisticsModule,
+    IncomeModule,
     RouterModule.forRoot([
-      {
-        path: 'statistics',
-        canActivate: [AuthenticationGuard],
-        component: UserStatisticsComponent,
-      },
       { path: 'welcome', component: WelcomeComponent, pathMatch: 'full' },
       {
         path: '',
@@ -43,7 +38,6 @@ import { IncomeModule } from './income/income.module';
       },
       { path: '**', redirectTo: 'welcome', pathMatch: 'full' },
     ]),
-    IncomeModule,
     AuthenticationModule,
     NgxSpinnerModule,
   ],
@@ -55,6 +49,5 @@ import { IncomeModule } from './income/income.module';
     },
   ],
   bootstrap: [AppComponent],
-  entryComponents: [IncomeFormComponent],
 })
 export class AppModule {}

@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row row-cols-auto">
+    <div class="col mb-3" *ngFor="let category of categoriesResponse">
+      <mat-card>
+        <mat-card-header>
+          <img matCardAvatar src="{{ category.imageSrc }}" />
+          <mat-card-title>{{ category.categoryName }}</mat-card-title>
+          <mat-card-subtitle>{{ category.description }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          Planned amount: {{ category.plannedAmount }}
+          <br />
+          Spend amount: {{ category.spendAmount }}
+        </mat-card-content>
+        <mat-card-actions align="start">
+          <button mat-button>+</button>
+          <button mat-button>Details</button>
+          <button mat-button color="warn" (click)="deleteCategory(category.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>
