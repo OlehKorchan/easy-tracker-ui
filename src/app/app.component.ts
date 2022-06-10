@@ -5,11 +5,9 @@ import {
   NavigationError,
   NavigationStart,
   Router,
-  RouterEvent,
 } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthenticationService } from './authentication/authentication.service';
-import { LoaderService } from './shared/loader.service';
 
 @Component({
   selector: 'app-root',
@@ -18,9 +16,7 @@ import { LoaderService } from './shared/loader.service';
 })
 export class AppComponent {
   title = 'easy-tracker';
-  loading$ = this.loader.loading$;
   constructor(
-    public loader: LoaderService,
     private authService: AuthenticationService,
     router: Router,
     private spinner: NgxSpinnerService

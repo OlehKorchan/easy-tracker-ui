@@ -30,8 +30,8 @@
     </button>
   </span>
   <span *ngIf="isUserLoggedIn" class="mx-2">
-    <button mat-raised-button color="accent" [matMenuTriggerFor]="menu">
-      Profile
+    <button mat-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item>

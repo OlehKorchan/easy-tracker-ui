@@ -1,9 +1,9 @@
 <h1 mat-dialog-title>Add income</h1>
 <div mat-dialog-content>
   <form (ngSubmit)="onSubmit()" #form="ngForm" ngNativeValidate>
-    <mat-error class="mb-3" *ngIf="incomeCreateResponse?.errors?.length">
+    <mat-error class="mb-3" *ngIf="spendingResponse?.errors?.length">
       Validation errors occurred:
-      <li *ngFor="let validationError of incomeCreateResponse.errors">
+      <li *ngFor="let validationError of spendingResponse.errors">
         {{ validationError }}
       </li>
     </mat-error>
@@ -13,7 +13,7 @@
         <input
           matInput
           type="number"
-          [(ngModel)]="incomeCreateRequest.amount"
+          [(ngModel)]="spendingRequest.amount"
           name="amount"
           id="amount"
           required
@@ -30,7 +30,7 @@
       <mat-form-field class="col-6" appearance="fill">
         <mat-label>Currency</mat-label>
         <mat-select
-          [(ngModel)]="incomeCreateRequest.currency"
+          [(ngModel)]="spendingRequest.currency"
           name="currencyCode"
           required
           #currencyField="ngModel"
@@ -44,10 +44,24 @@
         <mat-error [hidden]="currencyField.valid"> Choose currency </mat-error>
       </mat-form-field>
     </div>
+    <mat-form-field class="mb-3" appearance="fill">
+      <mat-label>Category</mat-label>
+      <mat-select
+        [(ngModel)]="spendingRequest.spendingCategoryId"
+        name="spendingCategoryId"
+        required
+        #categoryField="ngModel"
+      >
+        <mat-option *ngFor="let category of categories" [value]="category.id">{{
+          category.categoryName
+        }}</mat-option>
+      </mat-select>
+      <mat-error [hidden]="categoryField.valid"> Choose category </mat-error>
+    </mat-form-field>
     <mat-form-field class="full-width mb-3" appearance="fill">
       <mat-label>Comment</mat-label>
       <textarea
-        [(ngModel)]="incomeCreateRequest.comment"
+        [(ngModel)]="spendingRequest.comment"
         name="comment"
         id="comment"
         matInput

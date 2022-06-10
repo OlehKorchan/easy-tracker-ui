@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { AuthenticationService } from 'src/app/authentication/authentication.service';
 import { MatSidenav } from '@angular/material/sidenav';
+import { Router } from '@angular/router';
 
 const SMALL_WIDTH_BREAKPOINT = 720;
 
@@ -16,7 +17,8 @@ export class SidenavComponent implements OnInit {
 
   constructor(
     private breakPointObserver: BreakpointObserver,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -25,6 +27,12 @@ export class SidenavComponent implements OnInit {
       .subscribe((state: BreakpointState) => {
         this.isScreenSmall = state.matches;
       });
+
+    this.router.events.subscribe(() => {
+      if (this.isScreenSmall) {
+        this.sideNav?.close();
+      }
+    });
   }
 
   get isUserLoggedIn() {

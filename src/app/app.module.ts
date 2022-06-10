@@ -15,6 +15,7 @@ import { CategoryModule } from './category/category.module';
 import { UserStatisticsModule } from './user-statistics/user-statistics.module';
 import { IncomeModule } from './income/income.module';
 import { CurrencySelectComponent } from './currency-select/currency-select.component';
+import { SpendingFormComponent } from './spending-form/spending-form.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { CurrencySelectComponent } from './currency-select/currency-select.compo
     ToolbarComponent,
     WelcomeComponent,
     CurrencySelectComponent,
+    SpendingFormComponent,
   ],
   imports: [
     CategoryModule,

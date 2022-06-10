@@ -7,14 +7,12 @@ import {
 } from '@angular/common/http';
 import { finalize, Observable } from 'rxjs';
 import { ConfigurationService } from '.././shared/configuration.service';
-import { LoaderService } from '../shared/loader.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable()
 export class AuthenticationInterceptor implements HttpInterceptor {
   constructor(
     private _config: ConfigurationService,
-    private loader: LoaderService,
     private spinner: NgxSpinnerService
   ) {}
 

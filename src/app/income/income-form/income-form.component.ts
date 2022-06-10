@@ -1,10 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { IIncomeResponse } from '../../models/income-response';
 import { IIncomeCreateRequest } from '../../models/income-create.request';
 import { MatDialogRef } from '@angular/material/dialog';
 import { IncomeService } from '../income.service';
 import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
+import { CurrencyCodes } from 'src/app/models/currency-codes';
+import { UserService } from 'src/app/user-statistics/user.service';
 
 @Component({
   templateUrl: './income-form.component.html',
@@ -14,6 +15,7 @@ export class IncomeFormComponent implements OnDestroy {
   incomeCreateRequest: IIncomeCreateRequest = {
     amount: 0,
     comment: '',
+    currency: CurrencyCodes.USD,
   };
   incomeCreateResponse: IIncomeResponse = {
     id: '',
@@ -21,33 +23,31 @@ export class IncomeFormComponent implements OnDestroy {
     comment: '',
     dateAdded: new Date(),
     errors: [],
+    currency: CurrencyCodes.USD,
   };
   incomeResponseSub$: Subscription | undefined;
-  hasErrors: boolean = false;
-  errorMessages: string[] = [];
+  currencies: string[];
 
   constructor(
     public dialogRef: MatDialogRef<IncomeFormComponent>,
     private incomeService: IncomeService,
-    private router: Router
-  ) {}
+    public userService: UserService
+  ) {
+    this.currencies = userService.getCurrenciesList();
+  }
 
   onSubmit() {
-    this.hasErrors = false;
-    this.errorMessages = [];
-
     this.incomeResponseSub$ = this.incomeService
       .addIncome(this.incomeCreateRequest)
       .subscribe({
         next: (data) => {
-          if (!this.incomeCreateResponse.errors.length) {
+          if (!data.errors.length) {
             this.dialogRef.close('ok');
+          } else {
+            this.incomeCreateResponse = data;
           }
         },
         error: (error) => {
-          this.hasErrors = true;
-          this.errorMessages.push(error?.error?.errorMessage);
-
           console.log(error?.error?.errorMessage);
         },
       });

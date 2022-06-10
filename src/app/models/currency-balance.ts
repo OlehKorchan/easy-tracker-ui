@@ -1,7 +1,8 @@
 import { CurrencyCodes } from './currency-codes';
 
-export interface IIncomeCreateRequest {
+export interface ICurrencyBalance {
+  id: string;
   amount: number;
-  comment: string;
   currency: CurrencyCodes;
+  userId: string;
 }

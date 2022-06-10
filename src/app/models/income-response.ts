@@ -1,3 +1,4 @@
+import { CurrencyCodes } from './currency-codes';
 import { IResponse } from './response';
 
 export interface IIncomeResponse extends IResponse {
@@ -5,4 +6,5 @@ export interface IIncomeResponse extends IResponse {
   amount: number;
   comment: string;
   dateAdded: Date;
+  currency: CurrencyCodes;
 }

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { ConfigurationService } from '../shared/configuration.service';
 import { CurrencyCodes } from '../models/currency-codes';
 import { IUserMainCurrencyResponse } from '../models/user-main-currency-response';
@@ -12,10 +12,49 @@ import { IUserMainCurrencyRequest } from '../models/user-main-currency-request';
   providedIn: 'root',
 })
 export class UserService {
+  private _data: IUserStatisticsResponse = {
+    errors: [],
+    salaries: [],
+    spendingCategories: [],
+    amount: 0,
+    mainCurrency: CurrencyCodes.USD,
+    currencyBalances: [],
+    currencyRates: [],
+  };
+  private _userStatistics$: BehaviorSubject<IUserStatisticsResponse>;
+  private _amount$: BehaviorSubject<number>;
+  private _userMainCurrency$: BehaviorSubject<CurrencyCodes>;
+
   constructor(
     private httpClient: HttpClient,
     private config: ConfigurationService
-  ) {}
+  ) {
+    this._userStatistics$ = new BehaviorSubject<IUserStatisticsResponse>({
+      amount: 0,
+      errors: [],
+      mainCurrency: CurrencyCodes.USD,
+      salaries: [],
+      spendingCategories: [],
+      currencyBalances: [],
+      currencyRates: [],
+    });
+    this._amount$ = new BehaviorSubject<number>(0);
+    this._userMainCurrency$ = new BehaviorSubject<CurrencyCodes>(
+      CurrencyCodes.USD
+    );
+  }
+
+  get userStatistics$(): Observable<IUserStatisticsResponse> {
+    return this._userStatistics$.asObservable();
+  }
+
+  get amount$(): Observable<number> {
+    return this._amount$.asObservable();
+  }
+
+  get userMainCurrency$(): Observable<CurrencyCodes> {
+    return this._userMainCurrency$.asObservable();
+  }
 
   exchangeMoney(
     fromCurrency: string,
@@ -41,10 +80,21 @@ export class UserService {
         tap((data) =>
           console.log('User statistics obtained: ', JSON.stringify(data))
         )
-      );
+      )
+      .subscribe({
+        next: (data: IUserStatisticsResponse) => {
+          this._data = data;
+          this._userStatistics$.next(data);
+          this._amount$.next(data.amount);
+          this._userMainCurrency$.next(data.mainCurrency);
+        },
+        error: (error) => {
+          console.error(JSON.stringify(error));
+        },
+      });
   }
 
-  getUserAmount(): Observable<IUserAmountResponse> {
+  getUserAmount() {
     return this.httpClient
       .get<IUserAmountResponse>(
         this.config.getApiUrl() + this.config.getUserAmountUrl()
@@ -53,7 +103,17 @@ export class UserService {
         tap((result) => {
           console.log('obtained user amount: ' + JSON.stringify(result));
         })
-      );
+      )
+      .subscribe({
+        next: (data: IUserAmountResponse) => {
+          this._data.amount = data.amount;
+          this._amount$.next(data.amount);
+          this._userStatistics$.next(this._data);
+        },
+        error: (error) => {
+          console.error(JSON.stringify(error));
+        },
+      });
   }
 
   getUserMainCurrency() {
@@ -65,7 +125,17 @@ export class UserService {
         tap((result) => {
           console.log('User main currency: ' + JSON.stringify(result));
         })
-      );
+      )
+      .subscribe({
+        next: (data: IUserMainCurrencyResponse) => {
+          this._data.mainCurrency = data.mainCurrency;
+          this._userMainCurrency$.next(data.mainCurrency);
+          this._userStatistics$.next(this._data);
+        },
+        error: (error) => {
+          console.error(JSON.stringify(error));
+        },
+      });
   }
 
   setUserMainCurrency(currency: IUserMainCurrencyRequest) {

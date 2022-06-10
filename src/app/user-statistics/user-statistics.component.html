@@ -18,9 +18,17 @@
       user.amount | currency: convertCurrencyCodeToString(user.mainCurrency)
     }}</mat-card-subtitle
   >
+  <mat-card-content *ngIf="user.currencyBalances?.length">
+    Your money in different currencies:
+    <p *ngFor="let currencyBalance of user.currencyBalances">
+      {{
+        currencyBalance.amount
+          | currency: convertCurrencyCodeToString(currencyBalance.currency)
+      }}
+    </p>
+  </mat-card-content>
   <mat-card-actions>
     <button mat-button (click)="openIncomeForm()">Add income</button>
-    <button mat-button>Add expenses</button>
+    <button mat-button (click)="openSpendingForm()">Add expenses</button>
   </mat-card-actions>
 </mat-card>
-<app-categories-statistics></app-categories-statistics>

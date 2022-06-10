@@ -3,7 +3,7 @@
     <div class="col mb-3" *ngFor="let category of categoriesResponse">
       <mat-card>
         <mat-card-header>
-          <img matCardAvatar src="{{ category.imageSrc }}" />
+          <mat-icon matCardAvatar>{{ category.imageSrc }}</mat-icon>
           <mat-card-title>{{ category.categoryName }}</mat-card-title>
           <mat-card-subtitle>{{ category.description }}</mat-card-subtitle>
         </mat-card-header>
