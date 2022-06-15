@@ -7,7 +7,7 @@ import {
   Router,
 } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { AuthenticationService } from './authentication/authentication.service';
+import { AuthenticationService } from './modules/authentication/services/authentication.service';
 
 @Component({
   selector: 'app-root',

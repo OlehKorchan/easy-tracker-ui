@@ -17,10 +17,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule],
+  imports: [],
   exports: [
     CommonModule,
     FormsModule,
@@ -44,6 +45,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatCardModule,
     MatButtonToggleModule,
     MatSelectModule,
+    MatSnackBarModule,
   ],
 })
 export class SharedModule {}
