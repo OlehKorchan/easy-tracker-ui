@@ -5,7 +5,7 @@ import { IncomeHistoryComponent } from './components/income-history/income-histo
 
 const routes: Routes = [
   {
-    path: 'income-history',
+    path: 'income/history',
     canActivate: [AuthenticationGuard],
     component: IncomeHistoryComponent,
   },

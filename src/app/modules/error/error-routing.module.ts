@@ -5,9 +5,9 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ServerErrorComponent } from './components/server-error/server-error.component';
 
 const routes: Routes = [
-  { path: 'not-found', component: NotFoundComponent },
-  { path: 'server-error', component: ServerErrorComponent },
-  { path: 'no-access', component: NoAccessComponent },
+  { path: 'error/not-found', component: NotFoundComponent },
+  { path: 'error/server-error', component: ServerErrorComponent },
+  { path: 'error/no-access', component: NoAccessComponent },
 ];
 
 @NgModule({

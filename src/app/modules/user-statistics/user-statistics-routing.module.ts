@@ -5,7 +5,7 @@ import { UserStatisticsComponent } from './user-statistics.component';
 
 const routes: Routes = [
   {
-    path: 'statistics',
+    path: 'user/statistics',
     canActivate: [AuthenticationGuard],
     component: UserStatisticsComponent,
   },

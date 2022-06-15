@@ -13,6 +13,7 @@ export class WelcomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.authService.isLoggedIn()) [this.router.navigate(['/statistics'])];
+    if (this.authService.isLoggedIn())
+      [this.router.navigate(['/user/statistics'])];
   }
 }

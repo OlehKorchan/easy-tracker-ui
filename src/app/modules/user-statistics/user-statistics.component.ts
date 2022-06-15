@@ -6,6 +6,7 @@ import { IncomeFormComponent } from '../income/components/income-form/income-for
 import { SpendingFormComponent } from '../spending/components/spending-form/spending-form.component';
 import { IUserStatisticsResponse } from './models/user-statistics-response';
 import { UserService } from './services/user.service';
+
 @Component({
   templateUrl: './user-statistics.component.html',
   styleUrls: ['./user-statistics.component.css'],

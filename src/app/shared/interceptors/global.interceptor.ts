@@ -64,13 +64,13 @@ export class GlobalInterceptor implements HttpInterceptor {
             this._router.navigate(['/login']);
             break;
           case 403:
-            this._router.navigate(['/no-access']);
+            this._router.navigate(['/error/no-access']);
             break;
           case 404:
-            this._router.navigate(['/not-found']);
+            this._router.navigate(['/error/not-found']);
             break;
           case 500:
-            this._router.navigate(['/server-error']);
+            this._router.navigate(['/error/server-error']);
             break;
           case 0:
             this._snackBar.open('Server down', 'close');

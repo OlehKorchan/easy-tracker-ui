@@ -5,7 +5,7 @@ import { CategoriesStatisticsComponent } from './components/categories-statistic
 
 const routes: Routes = [
   {
-    path: 'spending-categories',
+    path: 'category/all',
     canActivate: [AuthenticationGuard],
     component: CategoriesStatisticsComponent,
   },
