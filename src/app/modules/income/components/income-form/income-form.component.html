@@ -1,11 +1,13 @@
 <h1 mat-dialog-title>Add income</h1>
 <div mat-dialog-content>
-  <form (ngSubmit)="onSubmit()" #form="ngForm" ngNativeValidate>
+  <form [formGroup]="incomeForm" (ngSubmit)="onSubmit()" ngNativeValidate>
     <mat-error class="mb-3" *ngIf="incomeCreateResponse?.errors?.length">
       Validation errors occurred:
-      <li *ngFor="let validationError of incomeCreateResponse.errors">
-        {{ validationError }}
-      </li>
+      <ul>
+        <li *ngFor="let validationError of incomeCreateResponse.errors">
+          {{ validationError }}
+        </li>
+      </ul>
     </mat-error>
     <div class="row mb-3">
       <mat-form-field class="col-6" appearance="fill">
@@ -13,49 +15,46 @@
         <input
           matInput
           type="number"
-          [(ngModel)]="incomeCreateRequest.amount"
-          name="amount"
+          formControlName="amount"
           id="amount"
-          required
-          min="0.01"
-          max="1000000000"
           step="0.01"
-          #amountField="ngModel"
           placeholder="Amount"
         />
-        <mat-error [hidden]="amountField.valid || amountField.untouched">
+        <mat-error
+          *ngIf="amountControl.invalid && amountControl.touched && amountControl.errors?.['required']"
+        >
           Please, specify a valid amount
+        </mat-error>
+        <mat-error
+          *ngIf="amountControl.invalid && amountControl.touched && amountControl.errors?.['min']"
+        >
+          Amount should be positive
+        </mat-error>
+        <mat-error
+          *ngIf="amountControl.invalid && amountControl.touched && amountControl.errors?.['max']"
+        >
+          Amount should be less than 1000000000
         </mat-error>
       </mat-form-field>
       <mat-form-field class="col-6" appearance="fill">
         <mat-label>Currency</mat-label>
-        <mat-select
-          [(ngModel)]="incomeCreateRequest.currency"
-          name="currencyCode"
-          required
-          #currencyField="ngModel"
-        >
+        <mat-select formControlName="currency">
           <mat-option
             *ngFor="let currency of currencies"
             [value]="userService.convertStringCurrencyToCurrencyCode(currency)"
             >{{ currency }}</mat-option
           >
         </mat-select>
-        <mat-error [hidden]="currencyField.valid"> Choose currency </mat-error>
+        <mat-error *ngIf="currencyControl.invalid && currencyControl.touched">
+          Choose currency
+        </mat-error>
       </mat-form-field>
     </div>
     <mat-form-field class="full-width mb-3" appearance="fill">
       <mat-label>Comment</mat-label>
-      <textarea
-        [(ngModel)]="incomeCreateRequest.comment"
-        name="comment"
-        id="comment"
-        matInput
-        maxlength="300"
-        #commentField="ngModel"
-      ></textarea>
-      <mat-error [hidden]="commentField.valid || commentField.untouched">
-        Please, specify a valid comment
+      <textarea formControlName="comment" id="comment" matInput></textarea>
+      <mat-error *ngIf="commentControl.invalid && commentControl.touched">
+        Comment should be shorter than 300 symbols
       </mat-error>
     </mat-form-field>
     <div class="row mb-3 justify-content-center">
