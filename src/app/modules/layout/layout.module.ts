@@ -9,6 +9,8 @@ import { MaterialModule } from 'src/app/shared/material.module';
 import { AuthenticationModule } from '../authentication/authentication.module';
 import { WelcomeRoutingModule } from '../welcome/welcome-routing.module';
 import { UserStatisticsRoutingModule } from '../user-statistics/user-statistics-routing.module';
+import { IncomeRoutingModule } from '../income/income-routing.module';
+import { ErrorRoutingModule } from '../error/error-routing.module';
 
 @NgModule({
   declarations: [SidenavComponent, ToolbarComponent, CurrencySelectComponent],
@@ -17,7 +19,9 @@ import { UserStatisticsRoutingModule } from '../user-statistics/user-statistics-
     SharedModule,
     LayoutRoutingModule,
     AuthenticationModule,
+    IncomeRoutingModule,
     WelcomeRoutingModule,
+    ErrorRoutingModule,
     UserStatisticsRoutingModule,
   ],
   exports: [SidenavComponent],
