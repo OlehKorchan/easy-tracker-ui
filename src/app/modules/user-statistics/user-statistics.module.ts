@@ -7,13 +7,13 @@ import { UserStatisticsRoutingModule } from './user-statistics-routing.module';
 import { MaterialModule } from 'src/app/shared/material.module';
 
 @NgModule({
-  declarations: [UserStatisticsComponent],
-  imports: [
-    MaterialModule,
-    SharedModule,
-    SpendingModule,
-    IncomeModule,
-    UserStatisticsRoutingModule,
-  ],
+	declarations: [UserStatisticsComponent],
+	imports: [
+		MaterialModule,
+		SharedModule,
+		SpendingModule,
+		IncomeModule,
+		UserStatisticsRoutingModule,
+	],
 })
 export class UserStatisticsModule {}

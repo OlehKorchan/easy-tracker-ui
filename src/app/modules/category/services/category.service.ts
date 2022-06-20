@@ -5,31 +5,31 @@ import { ConfigurationService } from 'src/app/shared/services/configuration.serv
 import { ISpendingCategoryResponse } from '../models/spending-category-response';
 
 @Injectable({
-  providedIn: 'root',
+	providedIn: 'root',
 })
 export class CategoryService {
-  constructor(
+	constructor(
     private _httpClient: HttpClient,
     private config: ConfigurationService
-  ) {}
+	) {}
 
-  getUserCategories() {
-    return this._httpClient
-      .get<ISpendingCategoryResponse[]>(this.config.getSpendingCategoriesUrl())
-      .pipe(
-        tap((data) =>
-          console.log('Obtained user categories: ', JSON.stringify(data))
-        )
-      );
-  }
+	getUserCategories() {
+		return this._httpClient
+			.get<ISpendingCategoryResponse[]>(this.config.getSpendingCategoriesUrl())
+			.pipe(
+				tap((data) =>
+					console.log('Obtained user categories: ', JSON.stringify(data))
+				)
+			);
+	}
 
-  removeCategory(id: string) {
-    return this._httpClient
-      .delete(this.config.getSpendingCategoriesUrl() + '/' + id)
-      .pipe(
-        tap((response) =>
-          console.log('category deletion response: ' + response)
-        )
-      );
-  }
+	removeCategory(id: string) {
+		return this._httpClient
+			.delete(this.config.getSpendingCategoriesUrl() + '/' + id)
+			.pipe(
+				tap((response) =>
+					console.log('category deletion response: ' + response)
+				)
+			);
+	}
 }

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ServerErrorComponent } from './server-error.component';
+import { SidenavComponent } from './sidenav.component';
 
-describe('ServerErrorComponent', () => {
-	let component: ServerErrorComponent;
-	let fixture: ComponentFixture<ServerErrorComponent>;
+describe('SidenavComponent', () => {
+	let component: SidenavComponent;
+	let fixture: ComponentFixture<SidenavComponent>;
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [ ServerErrorComponent ]
+			declarations: [ SidenavComponent ]
 		})
 			.compileComponents();
 	});
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(ServerErrorComponent);
+		fixture = TestBed.createComponent(SidenavComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

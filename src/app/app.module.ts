@@ -10,22 +10,22 @@ import { LayoutModule } from './modules/layout/layout.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [
-    SharedModule,
-    BrowserModule,
-    HttpClientModule,
-    NgxSpinnerModule,
-    BrowserAnimationsModule,
-    LayoutModule,
-  ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: GlobalInterceptor,
-      multi: true,
-    },
-  ],
-  bootstrap: [AppComponent],
+	declarations: [AppComponent],
+	imports: [
+		SharedModule,
+		BrowserModule,
+		HttpClientModule,
+		NgxSpinnerModule,
+		BrowserAnimationsModule,
+		LayoutModule,
+	],
+	providers: [
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: GlobalInterceptor,
+			multi: true,
+		},
+	],
+	bootstrap: [AppComponent],
 })
 export class AppModule {}

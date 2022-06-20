@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ServerErrorComponent } from './server-error.component';
+import { CurrencySelectComponent } from './currency-select.component';
 
-describe('ServerErrorComponent', () => {
-	let component: ServerErrorComponent;
-	let fixture: ComponentFixture<ServerErrorComponent>;
+describe('CurrencySelectComponent', () => {
+	let component: CurrencySelectComponent;
+	let fixture: ComponentFixture<CurrencySelectComponent>;
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [ ServerErrorComponent ]
+			declarations: [ CurrencySelectComponent ]
 		})
 			.compileComponents();
 	});
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(ServerErrorComponent);
+		fixture = TestBed.createComponent(CurrencySelectComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

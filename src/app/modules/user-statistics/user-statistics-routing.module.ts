@@ -4,15 +4,15 @@ import { AuthenticationGuard } from '../authentication/guards/authentication.gua
 import { UserStatisticsComponent } from './user-statistics.component';
 
 const routes: Routes = [
-  {
-    path: 'user/statistics',
-    canActivate: [AuthenticationGuard],
-    component: UserStatisticsComponent,
-  },
+	{
+		path: 'user/statistics',
+		canActivate: [AuthenticationGuard],
+		component: UserStatisticsComponent,
+	},
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+	imports: [RouterModule.forChild(routes)],
+	exports: [RouterModule],
 })
 export class UserStatisticsRoutingModule {}

@@ -6,41 +6,41 @@ import { IIncomeListResponse } from '../../models/income-list-response';
 import { CurrencyCodes } from 'src/app/shared/models/currency-codes';
 
 @Component({
-  templateUrl: './income-history.component.html',
-  styleUrls: ['./income-history.component.css'],
+	templateUrl: './income-history.component.html',
+	styleUrls: ['./income-history.component.css'],
 })
 export class IncomeHistoryComponent implements OnInit, OnDestroy {
-  incomeListResponse$!: Observable<IIncomeListResponse>;
-  incomeListResponse!: IIncomeListResponse;
-  incomeListResponseSub!: Subscription;
-  displayedColumns: string[] = ['date', 'amount', 'comment', 'action'];
+	incomeListResponse$!: Observable<IIncomeListResponse>;
+	incomeListResponse!: IIncomeListResponse;
+	incomeListResponseSub!: Subscription;
+	displayedColumns: string[] = ['date', 'amount', 'comment', 'action'];
 
-  constructor(private incomeService: IncomeService, private router: Router) {}
+	constructor(private incomeService: IncomeService, private router: Router) {}
 
-  toStringCurrencyCode(code: CurrencyCodes): string {
-    return CurrencyCodes[code];
-  }
+	toStringCurrencyCode(code: CurrencyCodes): string {
+		return CurrencyCodes[code];
+	}
 
-  deleteIncome(id: string) {
-    this.incomeService.removeIncome(id).subscribe({
-      next: (response) => {
-        this.incomeListResponseSub = this.incomeService.getUserIncomeList();
-      },
-      error: (error) => console.log(error?.error?.errorMessage),
-    });
-  }
+	deleteIncome(id: string) {
+		this.incomeService.removeIncome(id).subscribe({
+			next: () => {
+				this.incomeListResponseSub = this.incomeService.getUserIncomeList();
+			},
+			error: error => console.log(error?.error?.errorMessage),
+		});
+	}
 
-  ngOnInit(): void {
-    this.incomeListResponse$ = this.incomeService.incomeList$;
-    this.incomeListResponseSub = this.incomeService.getUserIncomeList();
-    this.incomeListResponse$.subscribe({
-      next: (data) => {
-        this.incomeListResponse = data;
-      },
-    });
-  }
+	ngOnInit(): void {
+		this.incomeListResponse$ = this.incomeService.incomeList$;
+		this.incomeListResponseSub = this.incomeService.getUserIncomeList();
+		this.incomeListResponse$.subscribe({
+			next: data => {
+				this.incomeListResponse = data;
+			},
+		});
+	}
 
-  ngOnDestroy(): void {
-    this.incomeListResponseSub.unsubscribe();
-  }
+	ngOnDestroy(): void {
+		this.incomeListResponseSub.unsubscribe();
+	}
 }

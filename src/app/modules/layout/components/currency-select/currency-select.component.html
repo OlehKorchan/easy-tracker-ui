@@ -1,0 +1,12 @@
+<mat-form-field appearance="fill">
+	<mat-label>Your main currency</mat-label>
+	<mat-select [(ngModel)]="userCurrency">
+		<mat-option
+			(click)="changeCurrency()"
+			*ngFor="let currency of currencies"
+			[value]="getCurrencyCodeFromName(currency)"
+		>
+			{{ currency }}
+		</mat-option>
+	</mat-select>
+</mat-form-field>

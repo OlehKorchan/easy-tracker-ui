@@ -8,63 +8,65 @@ import { IUserStatisticsResponse } from './models/user-statistics-response';
 import { UserService } from './services/user.service';
 
 @Component({
-  templateUrl: './user-statistics.component.html',
-  styleUrls: ['./user-statistics.component.css'],
+	templateUrl: './user-statistics.component.html',
+	styleUrls: ['./user-statistics.component.css'],
 })
 export class UserStatisticsComponent implements OnInit, OnDestroy {
-  user$!: Observable<IUserStatisticsResponse>;
-  user!: IUserStatisticsResponse;
+	user$!: Observable<IUserStatisticsResponse>;
+	user!: IUserStatisticsResponse;
 
-  showBalanceInCurrency!: CurrencyCodes;
-  allCurrencies: string[];
+	showBalanceInCurrency!: CurrencyCodes;
+	allCurrencies: string[];
 
-  userSubscription!: Subscription;
+	userSubscription!: Subscription;
 
-  constructor(private userService: UserService, public dialog: MatDialog) {
-    this.allCurrencies = userService.getCurrenciesList();
-  }
+	constructor(private userService: UserService, public dialog: MatDialog) {
+		this.allCurrencies = userService.getCurrenciesList();
+	}
 
-  openSpendingForm() {
-    const dialogItem = this.dialog.open(SpendingFormComponent, {
-      width: '300px',
-    });
+	openSpendingForm() {
+		const dialogItem = this.dialog.open(SpendingFormComponent, {
+			width: '300px',
+		});
 
-    dialogItem.afterClosed().subscribe((data) => {
-      if (data === 'ok') {
-        this.userService.getUserStatistics();
-      }
-    });
-  }
+		dialogItem.afterClosed().subscribe(data => {
+			if (data === 'ok') {
+				this.userService.getUserStatistics();
+			}
+		});
+	}
 
-  openIncomeForm() {
-    const dialogItem = this.dialog.open(IncomeFormComponent, {
-      width: '300px',
-    });
+	openIncomeForm() {
+		const dialogItem = this.dialog.open(IncomeFormComponent, {
+			width: '300px',
+		});
 
-    dialogItem.afterClosed().subscribe((data) => {
-      if (data === 'ok') {
-        this.userService.getUserStatistics();
-      }
-    });
-  }
+		dialogItem.afterClosed().subscribe(data => {
+			if (data === 'ok') {
+				this.userService.getUserStatistics();
+			}
+		});
+	}
 
-  convertCurrencyCodeToString(code: CurrencyCodes): string {
-    return CurrencyCodes[code];
-  }
+	convertCurrencyCodeToString(code: CurrencyCodes): string {
+		return CurrencyCodes[code];
+	}
 
-  changeCurrency() {}
+	changeCurrency() {
+		this.user.mainCurrency = this.showBalanceInCurrency;
+	}
 
-  ngOnInit(): void {
-    this.user$ = this.userService.userStatistics$;
-    this.userSubscription = this.userService.getUserStatistics();
-    this.user$.subscribe({
-      next: (data) => {
-        this.user = data;
-      },
-    });
-  }
+	ngOnInit(): void {
+		this.user$ = this.userService.userStatistics$;
+		this.userSubscription = this.userService.getUserStatistics();
+		this.user$.subscribe({
+			next: data => {
+				this.user = data;
+			},
+		});
+	}
 
-  ngOnDestroy(): void {
-    this.userSubscription.unsubscribe();
-  }
+	ngOnDestroy(): void {
+		this.userSubscription.unsubscribe();
+	}
 }

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor,
-  HttpErrorResponse,
+	HttpRequest,
+	HttpHandler,
+	HttpEvent,
+	HttpInterceptor,
+	HttpErrorResponse,
 } from '@angular/common/http';
 import { catchError, finalize, Observable, throwError } from 'rxjs';
 import { ConfigurationService } from '../services/configuration.service';
@@ -14,77 +14,77 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()
 export class GlobalInterceptor implements HttpInterceptor {
-  constructor(
+	constructor(
     private _config: ConfigurationService,
     private spinner: NgxSpinnerService,
     private _router: Router,
     private _snackBar: MatSnackBar
-  ) {}
+	) {}
 
-  intercept(
-    request: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
-    const userToken = localStorage.getItem(
-      this._config.getUserTokenSessionKey()
-    );
-    this.spinner.show();
+	intercept(
+		request: HttpRequest<any>,
+		next: HttpHandler
+	): Observable<HttpEvent<any>> {
+		const userToken = localStorage.getItem(
+			this._config.getUserTokenSessionKey()
+		);
+		this.spinner.show();
 
-    if (userToken) {
-      const cloned = request.clone({
-        headers: request.headers.set('Authorization', 'Bearer ' + userToken),
-      });
+		if (userToken) {
+			const cloned = request.clone({
+				headers: request.headers.set('Authorization', 'Bearer ' + userToken),
+			});
 
-      return next.handle(cloned).pipe(
-        catchError((error) => this.handleHttpError(error)),
-        finalize(() => {
-          this.spinner.hide();
-        })
-      );
-    }
+			return next.handle(cloned).pipe(
+				catchError((error) => this.handleHttpError(error)),
+				finalize(() => {
+					this.spinner.hide();
+				})
+			);
+		}
 
-    return next.handle(request).pipe(
-      finalize(() => {
-        this.spinner.hide();
-      })
-    );
-  }
+		return next.handle(request).pipe(
+			finalize(() => {
+				this.spinner.hide();
+			})
+		);
+	}
 
-  handleHttpError(err: any) {
-    if (err instanceof HttpErrorResponse) {
-      if (err.error instanceof ErrorEvent) {
-        console.error('Client side error', JSON.stringify(err.error.message));
+	handleHttpError(err: any) {
+		if (err instanceof HttpErrorResponse) {
+			if (err.error instanceof ErrorEvent) {
+				console.error('Client side error', JSON.stringify(err.error.message));
 
-        this._snackBar.open('Unexpected client error', 'close');
-      } else {
-        console.log(`Server error status : ${err.status} ${err.statusText}`);
+				this._snackBar.open('Unexpected client error', 'close');
+			} else {
+				console.log(`Server error status : ${err.status} ${err.statusText}`);
 
-        switch (err.status) {
-          case 401:
-            this._router.navigate(['/login']);
-            break;
-          case 403:
-            this._router.navigate(['/error/no-access']);
-            break;
-          case 404:
-            this._router.navigate(['/error/not-found']);
-            break;
-          case 500:
-            this._router.navigate(['/error/server-error']);
-            break;
-          case 0:
-            this._snackBar.open('Server down', 'close');
-            break;
-          default:
-            this._snackBar.open('Server error', 'close');
-        }
-      }
-    } else {
-      console.error('Unexpected error');
+				switch (err.status) {
+				case 401:
+					this._router.navigate(['/login']);
+					break;
+				case 403:
+					this._router.navigate(['/error/no-access']);
+					break;
+				case 404:
+					this._router.navigate(['/error/not-found']);
+					break;
+				case 500:
+					this._router.navigate(['/error/server-error']);
+					break;
+				case 0:
+					this._snackBar.open('Server down', 'close');
+					break;
+				default:
+					this._snackBar.open('Server error', 'close');
+				}
+			}
+		} else {
+			console.error('Unexpected error');
 
-      this._snackBar.open('Unexpected error', 'close');
-    }
+			this._snackBar.open('Unexpected error', 'close');
+		}
 
-    return throwError(() => err);
-  }
+		return throwError(() => err);
+	}
 }

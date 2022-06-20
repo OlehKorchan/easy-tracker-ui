@@ -6,8 +6,8 @@ import { IncomeHistoryComponent } from './components/income-history/income-histo
 import { IncomeRoutingModule } from './income-routing.module';
 
 @NgModule({
-  declarations: [IncomeHistoryComponent, IncomeFormComponent],
-  imports: [SharedModule, IncomeRoutingModule, MaterialModule],
-  exports: [IncomeFormComponent, IncomeHistoryComponent],
+	declarations: [IncomeHistoryComponent, IncomeFormComponent],
+	imports: [SharedModule, IncomeRoutingModule, MaterialModule],
+	exports: [IncomeFormComponent, IncomeHistoryComponent],
 })
 export class IncomeModule {}
