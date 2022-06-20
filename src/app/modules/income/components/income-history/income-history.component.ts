@@ -26,7 +26,7 @@ export class IncomeHistoryComponent implements OnInit, OnDestroy {
 			next: () => {
 				this.incomeListResponseSub = this.incomeService.getUserIncomeList();
 			},
-			error: error => console.log(error?.error?.errorMessage),
+			error: error => console.error(error.error?.errorMessage),
 		});
 	}
 
