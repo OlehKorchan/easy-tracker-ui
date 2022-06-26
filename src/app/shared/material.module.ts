@@ -15,26 +15,28 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
-	declarations: [],
-	exports: [
-		MatButtonModule,
-		MatCheckboxModule,
-		MatInputModule,
-		FlexLayoutModule,
-		MatMenuModule,
-		MatDialogModule,
-		MatProgressSpinnerModule,
-		MatTableModule,
-		MatToolbarModule,
-		MatIconModule,
-		MatSidenavModule,
-		MatListModule,
-		MatCardModule,
-		MatButtonToggleModule,
-		MatSelectModule,
-		MatSnackBarModule,
-	],
+  declarations: [],
+  exports: [
+    MatButtonModule,
+    MatCheckboxModule,
+    MatInputModule,
+    FlexLayoutModule,
+    MatMenuModule,
+    MatDialogModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    MatTableModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatListModule,
+    MatCardModule,
+    MatButtonToggleModule,
+    MatSelectModule,
+    MatSnackBarModule,
+  ],
 })
 export class MaterialModule {}

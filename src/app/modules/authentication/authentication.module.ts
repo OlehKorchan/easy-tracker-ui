@@ -7,8 +7,8 @@ import { AuthenticationRoutingModule } from './authentication-routing.module';
 import { MaterialModule } from 'src/app/shared/material.module';
 
 @NgModule({
-	declarations: [LoginComponent, RegisterComponent, LogoutComponent],
-	imports: [AuthenticationRoutingModule, SharedModule, MaterialModule],
-	exports: [LogoutComponent],
+  declarations: [LoginComponent, RegisterComponent, LogoutComponent],
+  imports: [AuthenticationRoutingModule, SharedModule, MaterialModule],
+  exports: [LogoutComponent],
 })
 export class AuthenticationModule {}

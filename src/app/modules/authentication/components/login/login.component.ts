@@ -6,62 +6,55 @@ import { ILoginResponse } from 'src/app/modules/authentication/models/login-resp
 import { ILoginRequest } from '../../models/login-request';
 
 @Component({
-	templateUrl: './login.component.html',
-	styleUrls: ['./login.component.css'],
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnDestroy {
-	loginRequest: ILoginRequest = {
-		login: '',
-		password: '',
-	};
-	loginResultSubscription!: Subscription;
-	loginResponse: ILoginResponse = {
-		username: '',
-		token: '',
-		errors: [],
-		expiresIn: 0,
-	};
-	hasErrors = false;
-	errorMessages: string[] = [];
+  loginRequest: ILoginRequest = {
+    login: '',
+    password: '',
+  };
+  loginResultSubscription!: Subscription;
+  loginResponse: ILoginResponse = {
+    username: '',
+    token: '',
+    errors: [],
+    expiresIn: 0,
+  };
+  hasErrors = false;
+  errorMessages: string[] = [];
 
-	constructor(
-    private _authenticationService: AuthenticationService,
-    private router: Router
-	) {}
+  constructor(private _authenticationService: AuthenticationService, private router: Router) {}
 
-	onSubmit(): void {
-		this.errorMessages = [];
+  onSubmit(): void {
+    this.errorMessages = [];
 
-		this.loginResultSubscription = this._authenticationService
-			.login(this.loginRequest)
-			.subscribe({
-				next: (data) => {
-					this.loginResponse = data;
+    this.loginResultSubscription = this._authenticationService.login(this.loginRequest).subscribe({
+      next: (data) => {
+        this.loginResponse = data;
 
-					if (
-						!this.loginResponse.errors?.length &&
-            this.loginResponse.token &&
-            this.loginResponse.username
-					) {
-						console.log(
-							`User with username ${this.loginResponse.username} logged in`
-						);
-						this.router.navigate(['']);
-					}
-				},
-				error: (error) => this.handleHttpError(error),
-			});
-	}
+        if (
+          !this.loginResponse.errors?.length &&
+          this.loginResponse.token &&
+          this.loginResponse.username
+        ) {
+          console.log(`User with username ${this.loginResponse.username} logged in`);
+          this.router.navigate(['']);
+        }
+      },
+      error: (error) => this.handleHttpError(error),
+    });
+  }
 
-	handleHttpError(error: any) {
-		console.log(error?.error?.errorMessage);
-		this.hasErrors = true;
-		this.errorMessages.push(error?.error?.errorMessage);
-	}
+  handleHttpError(error: any) {
+    console.log(error?.error?.errorMessage);
+    this.hasErrors = true;
+    this.errorMessages.push(error?.error?.errorMessage);
+  }
 
-	ngOnDestroy(): void {
-		if (this.loginResultSubscription) {
-			this.loginResultSubscription.unsubscribe();
-		}
-	}
+  ngOnDestroy(): void {
+    if (this.loginResultSubscription) {
+      this.loginResultSubscription.unsubscribe();
+    }
+  }
 }

@@ -1,0 +1,8 @@
+<div class="card">
+  <div #containerRef class="card-body"></div>
+  <ngx-charts-pie-grid
+    (window:resize)="onResize(containerRef.offsetWidth)"
+    [results]="doughnutChartData"
+    [view]="view"
+  ></ngx-charts-pie-grid>
+</div>

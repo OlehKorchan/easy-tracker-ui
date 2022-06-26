@@ -4,15 +4,15 @@ import { AuthenticationGuard } from '../authentication/guards/authentication.gua
 import { IncomeHistoryComponent } from './components/income-history/income-history.component';
 
 const routes: Routes = [
-	{
-		path: 'income/history',
-		canActivate: [AuthenticationGuard],
-		component: IncomeHistoryComponent,
-	},
+  {
+    path: 'income/history',
+    canActivate: [AuthenticationGuard],
+    component: IncomeHistoryComponent,
+  },
 ];
 
 @NgModule({
-	imports: [RouterModule.forChild(routes)],
-	exports: [RouterModule],
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
 export class IncomeRoutingModule {}

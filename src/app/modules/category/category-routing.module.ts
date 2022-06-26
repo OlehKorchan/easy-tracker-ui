@@ -4,16 +4,16 @@ import { AuthenticationGuard } from '../authentication/guards/authentication.gua
 import { CategoriesStatisticsComponent } from './components/categories-statistics/categories-statistics.component';
 
 const routes: Routes = [
-	{
-		path: 'category/all',
-		canActivate: [AuthenticationGuard],
-		component: CategoriesStatisticsComponent,
-	},
+  {
+    path: 'category/all',
+    canActivate: [AuthenticationGuard],
+    component: CategoriesStatisticsComponent,
+  },
 ];
 
 @NgModule({
-	declarations: [],
-	imports: [RouterModule.forChild(routes)],
-	exports: [RouterModule],
+  declarations: [],
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
 export class CategoryRoutingModule {}

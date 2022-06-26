@@ -1,30 +1,24 @@
+<!-- <mat-progress-bar [mode]="progress"></mat-progress-bar> -->
 <mat-card class="mb-3">
-  <p>Show overall balance in currency:</p>
+  <!-- <p>Show overall balance in currency:</p>
   <mat-button-toggle-group
     class="mb-3"
     [(ngModel)]="showBalanceInCurrency"
     (click)="changeCurrency()"
   >
-    <mat-button-toggle
-      [value]="currency"
-      *ngFor="let currency of allCurrencies"
-      >{{ currency }}</mat-button-toggle
-    >
-  </mat-button-toggle-group>
+    <mat-button-toggle [value]="currency" *ngFor="let currency of allCurrencies">{{
+      currency
+    }}</mat-button-toggle>
+  </mat-button-toggle-group> -->
   <mat-card-title>Your amount</mat-card-title>
   <mat-card-subtitle
     >Available money:
-    {{
-      user.amount | currency: convertCurrencyCodeToString(user.mainCurrency)
-    }}</mat-card-subtitle
+    {{ user.amount | currency: convertCurrencyCodeToString(user.mainCurrency) }}</mat-card-subtitle
   >
   <mat-card-content *ngIf="user.currencyBalances?.length">
     Your money in different currencies:
     <p *ngFor="let currencyBalance of user.currencyBalances">
-      {{
-        currencyBalance.amount
-          | currency: convertCurrencyCodeToString(currencyBalance.currency)
-      }}
+      {{ currencyBalance.amount | currency: convertCurrencyCodeToString(currencyBalance.currency) }}
     </p>
   </mat-card-content>
   <mat-card-actions>
@@ -32,3 +26,4 @@
     <button mat-button (click)="openSpendingForm()">Add expenses</button>
   </mat-card-actions>
 </mat-card>
+<app-spendings-chart [categories]="categories"></app-spendings-chart>

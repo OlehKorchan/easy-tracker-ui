@@ -6,17 +6,14 @@ import { ISpendingRequest } from '../models/spending-request';
 import { ISpendingResponse } from '../models/spending-response';
 
 @Injectable({
-	providedIn: 'root',
+  providedIn: 'root',
 })
 export class SpendingService {
-	constructor(
-    private _httpClient: HttpClient,
-    private _config: ConfigurationService
-	) {}
+  constructor(private _httpClient: HttpClient, private _config: ConfigurationService) {}
 
-	create(spending: ISpendingRequest) {
-		return this._httpClient
-			.post<ISpendingResponse>(this._config.getSpendingsUrl(), spending)
-			.pipe(tap((data) => console.log(JSON.stringify(data))));
-	}
+  create(spending: ISpendingRequest) {
+    return this._httpClient
+      .post<ISpendingResponse>(this._config.getSpendingsUrl(), spending)
+      .pipe(tap((data) => console.log(JSON.stringify(data))));
+  }
 }

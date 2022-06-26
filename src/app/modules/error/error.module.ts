@@ -6,7 +6,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ServerErrorComponent } from './components/server-error/server-error.component';
 
 @NgModule({
-	declarations: [NoAccessComponent, NotFoundComponent, ServerErrorComponent],
-	imports: [ErrorRoutingModule],
+  declarations: [NoAccessComponent, NotFoundComponent, ServerErrorComponent],
+  imports: [ErrorRoutingModule],
 })
 export class ErrorModule {}

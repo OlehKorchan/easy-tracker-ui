@@ -2,62 +2,62 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-	providedIn: 'root',
+  providedIn: 'root',
 })
 export class ConfigurationService {
-	getApiUrl(): string {
-		return environment.apiUrl;
-	}
+  public getApiUrl(): string {
+    return environment.apiUrl;
+  }
 
-	getLoginUrl(): string {
-		return environment.apiUrl + 'account/login';
-	}
+  public getLoginUrl(): string {
+    return environment.apiUrl + 'account/login';
+  }
 
-	getRegisterUrl(): string {
-		return environment.apiUrl + 'account/register';
-	}
+  public getRegisterUrl(): string {
+    return environment.apiUrl + 'account/register';
+  }
 
-	getLogoutUrl(): string {
-		return environment.apiUrl + 'account/logout';
-	}
+  public getLogoutUrl(): string {
+    return environment.apiUrl + 'account/logout';
+  }
 
-	getUserAmountUrl(): string {
-		return environment.apiUrl + 'user/amount';
-	}
+  public getUserAmountUrl(): string {
+    return environment.apiUrl + 'user/amount';
+  }
 
-	getUserMainCurrencyUrl(): string {
-		return environment.apiUrl + 'user/main-currency';
-	}
+  public getUserMainCurrencyUrl(): string {
+    return environment.apiUrl + 'user/main-currency';
+  }
 
-	getUserStatisticsUrl(): string {
-		return environment.apiUrl + 'user/statistics';
-	}
+  public getUserStatisticsUrl(): string {
+    return environment.apiUrl + 'user/statistics';
+  }
 
-	getSalariesUrl(): string {
-		return environment.apiUrl + 'salaries';
-	}
+  public getSalariesUrl(): string {
+    return environment.apiUrl + 'salaries';
+  }
 
-	getSpendingCategoriesUrl(): string {
-		return environment.apiUrl + 'spending-categories';
-	}
+  public getSpendingCategoriesUrl(): string {
+    return environment.apiUrl + 'spending-categories';
+  }
 
-	getMainSpendingCategoriesUrl(): string {
-		return environment.apiUrl + 'main-spending-categories';
-	}
+  public getMainSpendingCategoriesUrl(): string {
+    return environment.apiUrl + 'main-spending-categories';
+  }
 
-	getSpendingsUrl(): string {
-		return environment.apiUrl + 'spendings';
-	}
+  public getSpendingsUrl(): string {
+    return environment.apiUrl + 'spendings';
+  }
 
-	getUserTokenSessionKey(): string {
-		return 'user_token';
-	}
+  public getUserTokenSessionKey(): string {
+    return 'user_token';
+  }
 
-	getUserNameSessionKey(): string {
-		return 'username';
-	}
+  public getUserNameSessionKey(): string {
+    return 'username';
+  }
 
-	getExpiresAtSessionKey(): string {
-		return 'expires_at';
-	}
+  public getExpiresAtSessionKey(): string {
+    return 'expires_at';
+  }
 }

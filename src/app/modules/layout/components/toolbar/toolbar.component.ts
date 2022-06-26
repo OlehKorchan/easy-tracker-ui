@@ -2,21 +2,23 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { AuthenticationService } from '../../../authentication/services/authentication.service';
 
 @Component({
-	selector: 'app-toolbar',
-	templateUrl: './toolbar.component.html',
-	styleUrls: ['./toolbar.component.css'],
+  selector: 'app-toolbar',
+  templateUrl: './toolbar.component.html',
+  styleUrls: ['./toolbar.component.css'],
 })
 export class ToolbarComponent {
-	@Output() toggleSidenav = new EventEmitter<void>();
-	constructor(private _authenticationService: AuthenticationService) {}
+  @Output()
+  public toggleSidenav = new EventEmitter<void>();
 
-	get isUserLoggedIn(): boolean {
-		const state = this._authenticationService.isLoggedIn();
+  public constructor(private _authenticationService: AuthenticationService) {}
 
-		return state;
-	}
+  public get isUserLoggedIn(): boolean {
+    const state = this._authenticationService.isLoggedIn();
 
-	get userName(): string {
-		return this._authenticationService.getUserName();
-	}
+    return state;
+  }
+
+  public get userName(): string {
+    return this._authenticationService.getUserName();
+  }
 }

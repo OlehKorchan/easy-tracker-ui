@@ -7,60 +7,49 @@ import { IIncomeListResponse } from '../models/income-list-response';
 import { ConfigurationService } from 'src/app/shared/services/configuration.service';
 
 @Injectable({
-	providedIn: 'root',
+  providedIn: 'root',
 })
 export class IncomeService {
-	private _incomeList$!: BehaviorSubject<IIncomeListResponse>;
+  private _incomeList$!: BehaviorSubject<IIncomeListResponse>;
 
-	constructor(
-    private httpClient: HttpClient,
-    private config: ConfigurationService
-	) {
-		this._incomeList$ = new BehaviorSubject<IIncomeListResponse>({
-			errors: [],
-			userSalaries: [],
-		});
-	}
+  constructor(private httpClient: HttpClient, private config: ConfigurationService) {
+    this._incomeList$ = new BehaviorSubject<IIncomeListResponse>({
+      errors: [],
+      userSalaries: [],
+    });
+  }
 
-	get incomeList$(): Observable<IIncomeListResponse> {
-		return this._incomeList$.asObservable();
-	}
+  get incomeList$(): Observable<IIncomeListResponse> {
+    return this._incomeList$.asObservable();
+  }
 
-	addIncome(incomeCreateRequest: IIncomeCreateRequest) {
-		return this.httpClient
-			.post<IIncomeResponse>(this.config.getSalariesUrl(), incomeCreateRequest)
-			.pipe(
-				tap((data) => console.log('Income created: ' + JSON.stringify(data))),
-				catchError((error) => {
-					console.log(error?.error?.errorMessage);
-					return throwError(() => error);
-				})
-			);
-	}
+  addIncome(incomeCreateRequest: IIncomeCreateRequest) {
+    return this.httpClient
+      .post<IIncomeResponse>(this.config.getSalariesUrl(), incomeCreateRequest)
+      .pipe(
+        tap((data) => console.log('Income created: ' + JSON.stringify(data))),
+        catchError((error) => {
+          console.log(error?.error?.errorMessage);
+          return throwError(() => error);
+        }),
+      );
+  }
 
-	getUserIncomeList() {
-		return this.httpClient
-			.get<IIncomeListResponse>(this.config.getSalariesUrl())
-			.pipe(
-				tap((data) =>
-					console.log('Obtained income list: ' + JSON.stringify(data))
-				)
-			)
-			.subscribe({
-				next: (data) => {
-					this._incomeList$.next(data);
-				},
-				error: (error) => console.error(JSON.stringify(error)),
-			});
-	}
+  getUserIncomeList() {
+    return this.httpClient
+      .get<IIncomeListResponse>(this.config.getSalariesUrl())
+      .pipe(tap((data) => console.log('Obtained income list: ' + JSON.stringify(data))))
+      .subscribe({
+        next: (data) => {
+          this._incomeList$.next(data);
+        },
+        error: (error) => console.error(JSON.stringify(error)),
+      });
+  }
 
-	removeIncome(id: string) {
-		return this.httpClient
-			.delete(this.config.getSalariesUrl() + '/' + id)
-			.pipe(
-				tap((response) =>
-					console.log(`Income with id: ${id} deletion response: ${response}`)
-				)
-			);
-	}
+  removeIncome(id: string) {
+    return this.httpClient
+      .delete(this.config.getSalariesUrl() + '/' + id)
+      .pipe(tap((response) => console.log(`Income with id: ${id} deletion response: ${response}`)));
+  }
 }
