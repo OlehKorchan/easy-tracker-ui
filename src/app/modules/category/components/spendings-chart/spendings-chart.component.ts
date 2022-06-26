@@ -11,7 +11,7 @@ export class SpendingsChartComponent implements OnInit {
   @Input()
   public categories!: Observable<ISpendingCategoryResponse[]>;
 
-  public view: [number, number] = [window.innerWidth / 1.3, 320];
+  public view: [number, number] = [window.innerWidth, 320];
 
   public doughnutChartData!: any;
 
