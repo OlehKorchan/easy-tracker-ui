@@ -29,7 +29,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 GIT RULES:
 
 1. BRANCH NAME:
-action/trello-card-number
+action/trello-card-number/what-will-do
 
 Acitons:
 ci: changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)
