@@ -11,14 +11,7 @@ export class SpendingsChartComponent implements OnInit {
   @Input()
   public categories!: Observable<ISpendingCategoryResponse[]>;
 
-  public view: [number, number] = [window.innerWidth, 320];
-
   public doughnutChartData!: any;
-
-  public onResize(width: any) {
-    const defaultHeight = 320;
-    this.view = [width, defaultHeight];
-  }
 
   public ngOnInit(): void {
     this.categories.subscribe({
