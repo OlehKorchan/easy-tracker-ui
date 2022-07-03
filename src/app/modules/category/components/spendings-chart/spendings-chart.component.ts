@@ -1,4 +1,4 @@
-import { ISpendingCategoryResponse } from '../../models/spending-category-response';
+import { ISpendingCategoryResponse } from './../../models/spending-category-response';
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Observable, Subscription} from 'rxjs';
 import {UserService} from "../../../user-statistics/services/user.service";
@@ -13,8 +13,6 @@ export class SpendingsChartComponent implements OnInit, OnDestroy {
   @Input()
   public categories!: Observable<ISpendingCategoryResponse[]>;
 
-  public view: [number, number] = [window.innerWidth, 320];
-
   public doughnutChartData!: any;
 
   public currency$!: Observable<CurrencyCodes>;
@@ -22,11 +20,6 @@ export class SpendingsChartComponent implements OnInit, OnDestroy {
   public label!: string;
 
   public constructor(private userService: UserService) {}
-
-  public onResize(width: any) {
-    const defaultHeight = 320;
-    this.view = [width, defaultHeight];
-  }
 
   public ngOnInit(): void {
     this.currency$ = this.userService.userMainCurrency$;
