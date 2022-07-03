@@ -3,7 +3,7 @@
         Overall amount:
     </mat-card-title>
     <mat-card-content>
-        <div>
+        <div class="mb-3">
             <ng-container *ngIf="!isAmountEditMode; else editMode">
                 <mat-chip selected color="accent" (click)="toggleAmountEditMode()">
                     {{ user.amount | currency: userService.convertCurrencyCodeToString(

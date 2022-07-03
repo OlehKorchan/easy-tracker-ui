@@ -1,4 +1,4 @@
-import { ISpendingCategoryResponse } from './../../models/spending-category-response';
+import { ISpendingCategoryResponse } from '../../models/spending-category-response';
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Observable, Subscription} from 'rxjs';
 import {UserService} from "../../../user-statistics/services/user.service";
