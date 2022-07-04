@@ -51,17 +51,6 @@ export class UserService {
     return this._userMainCurrency$.asObservable();
   }
 
-  public exchangeMoney(fromCurrency: string, toCurrency: string, amount: number): number {
-    if (
-      fromCurrency === CurrencyCodes[CurrencyCodes.UAH] &&
-      toCurrency === CurrencyCodes[CurrencyCodes.USD]
-    ) {
-      return amount / 35;
-    }
-
-    return amount * 35;
-  }
-
   public getUserStatistics() {
     return this.httpClient
       .get<IUserStatisticsResponse>(this.config.getUserStatisticsUrl())
@@ -97,6 +86,14 @@ export class UserService {
           console.error(JSON.stringify(error));
         },
       });
+  }
+
+  public putUserAmount(amount: number) {
+    return this.httpClient.put(this.config.getUserAmountUrl(), {amount: amount})
+  }
+
+  public convertCurrencyCodeToString(code: CurrencyCodes): string {
+    return CurrencyCodes[code];
   }
 
   public getUserMainCurrency() {

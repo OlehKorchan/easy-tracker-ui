@@ -1,4 +1,4 @@
-import { CategoryModule } from './../category/category.module';
+import { CategoryModule } from '../category/category.module';
 import { NgModule } from '@angular/core';
 import { UserStatisticsComponent } from './user-statistics.component';
 import { SpendingModule } from '../spending/spending.module';
