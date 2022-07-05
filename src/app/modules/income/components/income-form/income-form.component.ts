@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { IIncomeCreateRequest } from '../../models/income-create.request';
 import { MatDialogRef } from '@angular/material/dialog';
 import { IncomeService } from '../../services/income.service';
@@ -29,7 +29,7 @@ export class IncomeFormComponent implements OnInit, OnDestroy {
   };
   public currencies: string[];
 
-  constructor(
+  public constructor(
     public dialogRef: MatDialogRef<IncomeFormComponent>,
     private incomeService: IncomeService,
     public userService: UserService,
@@ -57,19 +57,28 @@ export class IncomeFormComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.amountControl = new FormControl(Number, [
+    const minIncome = 0.01;
+    const maxIncome = 1000000000;
+    const maxCommentLength = 300;
+    this.amountControl = new FormControl(0, [
       Validators.required,
-      Validators.min(0.01),
-      Validators.max(1000000000),
+      Validators.min(minIncome),
+      Validators.max(maxIncome),
     ]);
-    this.commentControl = new FormControl('', [Validators.maxLength(300)]);
-    this.currencyControl = new FormControl(CurrencyCodes.USD, [Validators.required]);
 
-    this.incomeForm = new FormGroup({
-      amount: this.amountControl,
-      comment: this.commentControl,
-      currency: this.currencyControl,
+    this.userService.userMainCurrency$.subscribe({
+      next: (userMainCurrency: CurrencyCodes) => {
+        this.commentControl = new FormControl('', [Validators.maxLength(maxCommentLength)]);
+        this.currencyControl = new FormControl(userMainCurrency, [Validators.required]);
+
+        this.incomeForm = new FormGroup({
+          amount: this.amountControl,
+          comment: this.commentControl,
+          currency: this.currencyControl,
+        });
+      },
     });
+    this.userService.getUserMainCurrency();
   }
 
   public ngOnDestroy(): void {
