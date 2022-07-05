@@ -49,16 +49,14 @@ feat: for new functionality
 refactor: refactoring production code, eg. renaming variable
 
 2. Commit name:
-'(action)
 Verb summary
 
-Description'
+Description
 
 example:
-'(feautre)
 Add new button
 
-Was added new button'
+Was added new button
 
 Detailed rules: https://cbea.ms/git-commit/#separate
 
