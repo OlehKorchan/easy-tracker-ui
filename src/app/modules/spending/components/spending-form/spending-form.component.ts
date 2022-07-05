@@ -14,17 +14,17 @@ import { SpendingService } from '../../services/spending.service';
   styleUrls: ['./spending-form.component.css'],
 })
 export class SpendingFormComponent implements OnInit {
-  spendingRequest: ISpendingRequest = {
+  public spendingRequest: ISpendingRequest = {
     amount: 0,
     comment: '',
     currency: CurrencyCodes.USD,
     spendingCategoryId: '',
   };
-  currencies: string[];
-  categories!: ISpendingCategoryResponse[];
-  spendingResponse!: ISpendingResponse;
+  public currencies: string[];
+  public categories!: ISpendingCategoryResponse[];
+  public spendingResponse!: ISpendingResponse;
 
-  constructor(
+  public constructor(
     private _spendingService: SpendingService,
     private dialogRef: MatDialogRef<SpendingFormComponent>,
     public userService: UserService,
@@ -33,7 +33,7 @@ export class SpendingFormComponent implements OnInit {
     this.currencies = userService.getCurrenciesList();
   }
 
-  onSubmit() {
+  public onSubmit() {
     this._spendingService.create(this.spendingRequest).subscribe({
       next: (response) => {
         this.spendingResponse = response;
@@ -45,7 +45,10 @@ export class SpendingFormComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
+    this.userService.userMainCurrency$.subscribe({
+      next: (userMainCurrency: CurrencyCodes) => (this.spendingRequest.currency = userMainCurrency),
+    });
     this._categoryService.getUserCategories().subscribe({
       next: (data) => (this.categories = data),
       error: (error) => console.error(JSON.stringify(error)),

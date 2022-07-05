@@ -89,11 +89,28 @@ export class UserService {
   }
 
   public putUserAmount(amount: number) {
-    return this.httpClient.put(this.config.getUserAmountUrl(), {amount: amount})
+    return this.httpClient.put(this.config.getUserAmountUrl(), { amount: amount });
   }
 
   public convertCurrencyCodeToString(code: CurrencyCodes): string {
     return CurrencyCodes[code];
+  }
+
+  public convertCurrencyCodeToCurrencySymbol(code: CurrencyCodes): string {
+    switch (code) {
+      case CurrencyCodes.UAH: {
+        return 'UAH';
+      }
+      case CurrencyCodes.USD: {
+        return '$';
+      }
+      case CurrencyCodes.GBP: {
+        return '£';
+      }
+      case CurrencyCodes.EUR: {
+        return '€';
+      }
+    }
   }
 
   public getUserMainCurrency() {
