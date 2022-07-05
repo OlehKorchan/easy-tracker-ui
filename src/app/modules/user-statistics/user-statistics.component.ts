@@ -30,7 +30,7 @@ export class UserStatisticsComponent implements OnInit, OnDestroy {
   public constructor(
     private fb: FormBuilder,
     public userService: UserService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
   ) {
     this.allCurrencies = userService.getCurrenciesList();
   }
@@ -38,21 +38,20 @@ export class UserStatisticsComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.user$ = this.userService.userStatistics$;
     this.userSubscription = this.userService.getUserStatistics();
-    this.user$
-      .subscribe({
-        next: (data) => {
-          this.user = data;
-          this.categories$.emit(data.spendingCategories);
+    this.user$.subscribe({
+      next: (data) => {
+        this.user = data;
+        this.categories$.emit(data.spendingCategories);
 
-          const userAmountMaxValue = 1000000000;
-          this.amountCtrl = new FormControl(data.amount, [
-            Validators.required,
-            Validators.min(-userAmountMaxValue),
-            Validators.max(userAmountMaxValue),
-          ]);
-          this.amountForm = this.fb.group({
-            amount: this.amountCtrl,
-          });
+        const userAmountMaxValue = 1000000000;
+        this.amountCtrl = new FormControl(data.amount, [
+          Validators.required,
+          Validators.min(-userAmountMaxValue),
+          Validators.max(userAmountMaxValue),
+        ]);
+        this.amountForm = this.fb.group({
+          amount: this.amountCtrl,
+        });
       },
     });
   }
@@ -91,7 +90,7 @@ export class UserStatisticsComponent implements OnInit, OnDestroy {
   }
 
   public onSubmitAmountUpdate() {
-    if (this.amountForm.valid){
+    if (this.amountForm.valid) {
       this.userService.putUserAmount(this.amountCtrl.value).subscribe({
         next: () => {
           this.toggleAmountEditMode();

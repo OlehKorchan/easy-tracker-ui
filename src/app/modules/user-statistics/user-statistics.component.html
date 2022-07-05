@@ -11,7 +11,10 @@
                 </mat-chip>
             </ng-container>
             <ng-template #editMode>
-                <form [formGroup]="amountForm" (ngSubmit)="onSubmitAmountUpdate()">
+                <form
+                    [formGroup]="amountForm"
+                    (ngSubmit)="onSubmitAmountUpdate()"
+                >
                     <mat-form-field appearance="fill">
                         <input
                             formControlName="amount"
@@ -19,28 +22,29 @@
                             placeholder="amount"
                             currencyMask
                             [options]="{
-                            prefix: userService.convertCurrencyCodeToString(user.mainCurrency),
-                            thousands: ',',
-                            decimal: '.'
-                        }"
+                                prefix: userService.convertCurrencyCodeToString(user.mainCurrency),
+                                thousands: ',',
+                                decimal: '.'
+                            }"
                         />
                         <mat-error *ngIf="amountCtrl.touched && amountCtrl.invalid">
                             Invalid amount
                         </mat-error>
-                    </mat-form-field>
-                    <div>
                         <button
-                            mat-button
+                            matSuffix
+                            mat-icon-button
                             type="submit"
                             color="primary">
                             <mat-icon>check_circle</mat-icon>
                         </button>
-                        <button type="button"
-                                mat-button (click)="toggleAmountEditMode()"
-                                color="warn">
+                        <button
+                            matSuffix
+                            type="button"
+                            mat-icon-button (click)="toggleAmountEditMode()"
+                            color="warn">
                             <mat-icon>cancel</mat-icon>
                         </button>
-                    </div>
+                    </mat-form-field>
                 </form>
             </ng-template>
         </div>
