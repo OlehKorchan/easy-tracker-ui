@@ -1,8 +1,8 @@
 import { ISpendingCategoryResponse } from '../../models/spending-category-response';
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {Observable, Subscription} from 'rxjs';
-import {UserService} from "../../../user-statistics/services/user.service";
-import {CurrencyCodes} from "../../../../shared/models/currency-codes";
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import { UserService } from '../../../user-statistics/services/user.service';
+import { CurrencyCodes } from '../../../../shared/models/currency-codes';
 
 @Component({
   selector: 'app-spendings-chart',
@@ -24,7 +24,7 @@ export class SpendingsChartComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.currency$ = this.userService.userMainCurrency$;
     this.currencySubscription$ = this.currency$.subscribe({
-      next: result => this.label = this.userService.convertCurrencyCodeToString(result),
+      next: (result) => (this.label = this.userService.convertCurrencyCodeToString(result)),
     });
     this.userService.getUserMainCurrency();
 

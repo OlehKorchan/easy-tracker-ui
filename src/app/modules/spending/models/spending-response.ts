@@ -1,10 +1,10 @@
 import { IResponse } from '../../../shared/models/response';
-import { ISpendingCategoryResponse } from '../../category/models/spending-category-response';
+import { CurrencyCodes } from '../../../shared/models/currency-codes';
 
 export interface ISpendingResponse extends IResponse {
   id: string;
   amount: number;
   comment: string;
-  spendingCategoryId: string;
-  spendingCategory: ISpendingCategoryResponse;
+  currency: CurrencyCodes;
+  categoryName: string;
 }

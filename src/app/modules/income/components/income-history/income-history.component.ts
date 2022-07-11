@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { IncomeService } from '../../services/income.service';
 import { IIncomeListResponse } from '../../models/income-list-response';
@@ -10,18 +9,18 @@ import { CurrencyCodes } from 'src/app/shared/models/currency-codes';
   styleUrls: ['./income-history.component.css'],
 })
 export class IncomeHistoryComponent implements OnInit, OnDestroy {
-  incomeListResponse$!: Observable<IIncomeListResponse>;
-  incomeListResponse!: IIncomeListResponse;
-  incomeListResponseSub!: Subscription;
-  displayedColumns: string[] = ['date', 'amount', 'comment', 'action'];
+  public incomeListResponse$!: Observable<IIncomeListResponse>;
+  public incomeListResponse!: IIncomeListResponse;
+  private incomeListResponseSub!: Subscription;
+  public displayedColumns: string[] = ['date', 'amount', 'comment', 'action'];
 
-  constructor(private incomeService: IncomeService, private router: Router) {}
+  public constructor(private incomeService: IncomeService) {}
 
-  toStringCurrencyCode(code: CurrencyCodes): string {
+  public toStringCurrencyCode(code: CurrencyCodes): string {
     return CurrencyCodes[code];
   }
 
-  deleteIncome(id: string) {
+  public deleteIncome(id: string) {
     this.incomeService.removeIncome(id).subscribe({
       next: () => {
         this.incomeListResponseSub = this.incomeService.getUserIncomeList();
@@ -30,7 +29,7 @@ export class IncomeHistoryComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.incomeListResponse$ = this.incomeService.incomeList$;
     this.incomeListResponseSub = this.incomeService.getUserIncomeList();
     this.incomeListResponse$.subscribe({
@@ -40,7 +39,7 @@ export class IncomeHistoryComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.incomeListResponseSub.unsubscribe();
   }
 }

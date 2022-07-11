@@ -54,7 +54,6 @@ export class UserService {
   public getUserStatistics() {
     return this.httpClient
       .get<IUserStatisticsResponse>(this.config.getUserStatisticsUrl())
-      .pipe(tap((data) => console.log('User statistics obtained: ', JSON.stringify(data))))
       .subscribe({
         next: (data: IUserStatisticsResponse) => {
           this._data = data;
@@ -69,23 +68,16 @@ export class UserService {
   }
 
   public getUserAmount() {
-    return this.httpClient
-      .get<IUserAmountResponse>(this.config.getUserAmountUrl())
-      .pipe(
-        tap((result) => {
-          console.log('obtained user amount: ' + JSON.stringify(result));
-        }),
-      )
-      .subscribe({
-        next: (data: IUserAmountResponse) => {
-          this._data.amount = data.amount;
-          this._amount$.next(data.amount);
-          this._userStatistics$.next(this._data);
-        },
-        error: (error) => {
-          console.error(JSON.stringify(error));
-        },
-      });
+    return this.httpClient.get<IUserAmountResponse>(this.config.getUserAmountUrl()).subscribe({
+      next: (data: IUserAmountResponse) => {
+        this._data.amount = data.amount;
+        this._amount$.next(data.amount);
+        this._userStatistics$.next(this._data);
+      },
+      error: (error) => {
+        console.error(JSON.stringify(error));
+      },
+    });
   }
 
   public putUserAmount(amount: number) {
