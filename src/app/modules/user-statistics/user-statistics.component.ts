@@ -1,6 +1,6 @@
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ISpendingCategoryResponse } from '../category/models/spending-category-response';
-import { Component, OnDestroy, OnInit, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subscription } from 'rxjs';
 import { IncomeFormComponent } from '../income/components/income-form/income-form.component';
@@ -16,7 +16,6 @@ export class UserStatisticsComponent implements OnInit, OnDestroy {
   public isAmountEditMode: boolean = false;
   public amountForm!: FormGroup;
   public amountCtrl!: FormControl;
-  public user$!: Observable<IUserStatisticsResponse>;
   public user!: IUserStatisticsResponse;
 
   public categories$: EventEmitter<ISpendingCategoryResponse[]> = new EventEmitter<
@@ -35,16 +34,18 @@ export class UserStatisticsComponent implements OnInit, OnDestroy {
     this.allCurrencies = userService.getCurrenciesList();
   }
 
+  public get categories(): Observable<ISpendingCategoryResponse[]> {
+    return this.categories$.asObservable();
+  }
+
   public ngOnInit(): void {
-    this.user$ = this.userService.userStatistics$;
-    this.userSubscription = this.userService.getUserStatistics();
-    this.user$.subscribe({
-      next: (data) => {
+    this.userSubscription = this.userService.userStatistics$.subscribe({
+      next: (data: IUserStatisticsResponse) => {
         this.user = data;
-        this.categories$.emit(data.spendingCategories);
+        this.categories$.emit(this.user.spendingCategories);
 
         const userAmountMaxValue = 1000000000;
-        this.amountCtrl = new FormControl(data.amount, [
+        this.amountCtrl = new FormControl(this.user.amount, [
           Validators.required,
           Validators.min(-userAmountMaxValue),
           Validators.max(userAmountMaxValue),
@@ -54,6 +55,8 @@ export class UserStatisticsComponent implements OnInit, OnDestroy {
         });
       },
     });
+
+    this.userService.getUserStatistics();
   }
 
   public toggleAmountEditMode() {
@@ -83,10 +86,6 @@ export class UserStatisticsComponent implements OnInit, OnDestroy {
         this.userService.getUserStatistics();
       }
     });
-  }
-
-  public get categories(): Observable<ISpendingCategoryResponse[]> {
-    return this.categories$.asObservable();
   }
 
   public onSubmitAmountUpdate() {

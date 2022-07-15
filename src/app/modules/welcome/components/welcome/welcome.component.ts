@@ -7,11 +7,11 @@ import { AuthenticationService } from 'src/app/modules/authentication/services/a
   styleUrls: ['./welcome.component.css'],
 })
 export class WelcomeComponent implements OnInit {
-  constructor(private authService: AuthenticationService, private router: Router) {}
+  public constructor(private authService: AuthenticationService, private router: Router) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     if (this.authService.isLoggedIn()) {
-      [this.router.navigate(['/user/statistics'])];
+      this.router.navigate(['/user/statistics']);
     }
   }
 }

@@ -12,18 +12,18 @@ import { ConfigurationService } from 'src/app/shared/services/configuration.serv
 export class IncomeService {
   private _incomeList$!: BehaviorSubject<IIncomeListResponse>;
 
-  constructor(private httpClient: HttpClient, private config: ConfigurationService) {
+  public constructor(private httpClient: HttpClient, private config: ConfigurationService) {
     this._incomeList$ = new BehaviorSubject<IIncomeListResponse>({
       errors: [],
       userSalaries: [],
     });
   }
 
-  get incomeList$(): Observable<IIncomeListResponse> {
+  public get incomeList$(): Observable<IIncomeListResponse> {
     return this._incomeList$.asObservable();
   }
 
-  addIncome(incomeCreateRequest: IIncomeCreateRequest) {
+  public addIncome(incomeCreateRequest: IIncomeCreateRequest) {
     return this.httpClient
       .post<IIncomeResponse>(this.config.getSalariesUrl(), incomeCreateRequest)
       .pipe(
@@ -35,7 +35,7 @@ export class IncomeService {
       );
   }
 
-  getUserIncomeList() {
+  public getUserIncomeList() {
     return this.httpClient
       .get<IIncomeListResponse>(this.config.getSalariesUrl())
       .pipe(tap((data) => console.log('Obtained income list: ' + JSON.stringify(data))))
@@ -47,7 +47,7 @@ export class IncomeService {
       });
   }
 
-  removeIncome(id: string) {
+  public removeIncome(id: string) {
     return this.httpClient
       .delete(this.config.getSalariesUrl() + '/' + id)
       .pipe(tap((response) => console.log(`Income with id: ${id} deletion response: ${response}`)));

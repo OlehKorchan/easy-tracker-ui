@@ -10,23 +10,26 @@ import { ILoginRequest } from '../../models/login-request';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnDestroy {
-  loginRequest: ILoginRequest = {
+  public loginRequest: ILoginRequest = {
     login: '',
     password: '',
   };
-  loginResultSubscription!: Subscription;
-  loginResponse: ILoginResponse = {
+  public loginResultSubscription!: Subscription;
+  public loginResponse: ILoginResponse = {
     username: '',
     token: '',
     errors: [],
     expiresIn: 0,
   };
-  hasErrors = false;
-  errorMessages: string[] = [];
+  public hasErrors = false;
+  public errorMessages: string[] = [];
 
-  constructor(private _authenticationService: AuthenticationService, private router: Router) {}
+  public constructor(
+    private _authenticationService: AuthenticationService,
+    private router: Router,
+  ) {}
 
-  onSubmit(): void {
+  public onSubmit(): void {
     this.errorMessages = [];
 
     this.loginResultSubscription = this._authenticationService.login(this.loginRequest).subscribe({
@@ -46,13 +49,13 @@ export class LoginComponent implements OnDestroy {
     });
   }
 
-  handleHttpError(error: any) {
+  public handleHttpError(error: any) {
     console.log(error?.error?.errorMessage);
     this.hasErrors = true;
     this.errorMessages.push(error?.error?.errorMessage);
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     if (this.loginResultSubscription) {
       this.loginResultSubscription.unsubscribe();
     }

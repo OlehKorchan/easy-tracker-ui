@@ -1,4 +1,4 @@
-<mat-card class="mb-3">
+<mat-card *ngIf="user.amount; else loader" class="mb-3">
     <mat-card-title>
         Overall amount:
     </mat-card-title>
@@ -48,7 +48,7 @@
                 </form>
             </ng-template>
         </div>
-        <div *ngIf="user.currencyBalances?.length">
+        <div *ngIf="user?.currencyBalances?.length">
             Your money in different currencies:
             <mat-chip-list aria-label="Color selection">
                 <mat-chip *ngFor="let currencyBalance of user.currencyBalances"
@@ -68,3 +68,6 @@
     </mat-card-actions>
 </mat-card>
 <app-spendings-chart [categories]="categories"></app-spendings-chart>
+<ng-template #loader>
+    <mat-progress-bar mode="query"></mat-progress-bar>
+</ng-template>
