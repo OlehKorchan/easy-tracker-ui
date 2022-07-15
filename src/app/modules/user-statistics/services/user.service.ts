@@ -58,7 +58,7 @@ export class UserService {
         next: (data: IUserStatisticsResponse) => {
           this._data = data;
           this._userStatistics$.next(data);
-          this._amount$.next(data.amount);
+          this._amount$.next(data.amount as number);
           this._userMainCurrency$.next(data.mainCurrency);
         },
         error: (error) => {

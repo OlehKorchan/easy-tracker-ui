@@ -4,7 +4,7 @@ import { SpendingsComponent } from './components/spendings/spendings.component';
 import { AuthenticationGuard } from '../authentication/guards/authentication.guard';
 
 const routes: Routes = [
-  {path: 'spending/all', component: SpendingsComponent, canActivate: [AuthenticationGuard]},
+  { path: 'spending/all', component: SpendingsComponent, canActivate: [AuthenticationGuard] },
 ];
 
 @NgModule({

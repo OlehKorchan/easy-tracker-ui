@@ -6,7 +6,7 @@ import { IIncomeResponse } from '../../income/models/income-response';
 import { ICurrencyRate } from './currency-rate-response';
 
 export interface IUserStatisticsResponse extends IResponse {
-  amount: number;
+  amount?: number;
   mainCurrency: CurrencyCodes;
   spendingCategories: ISpendingCategoryResponse[];
   salaries: IIncomeResponse[];
