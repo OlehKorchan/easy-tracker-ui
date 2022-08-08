@@ -116,6 +116,7 @@
   },
   "defaultProject": "easy-tracker",
   "cli": {
+    "analytics": false,
     "defaultCollection": "@angular-eslint/schematics"
   }
 }
