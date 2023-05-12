@@ -12,16 +12,16 @@ import { IRegisterResponse } from '../models/register-response';
   providedIn: 'root',
 })
 export class AuthenticationService {
-  constructor(private _httpClient: HttpClient, private _config: ConfigurationService) {}
+  public constructor(private _httpClient: HttpClient, private _config: ConfigurationService) {}
 
-  login(loginRequest: ILoginRequest): Observable<ILoginResponse> {
+  public login(loginRequest: ILoginRequest): Observable<ILoginResponse> {
     return this._httpClient.post<ILoginResponse>(this._config.getLoginUrl(), loginRequest).pipe(
       tap((data) => this.setUserSession(data)),
       shareReplay(),
     );
   }
 
-  register(registerRequest: IRegisterRequest): Observable<IRegisterResponse> {
+  public register(registerRequest: IRegisterRequest): Observable<IRegisterResponse> {
     return this._httpClient
       .post<IRegisterResponse>(this._config.getRegisterUrl(), registerRequest)
       .pipe(
@@ -30,7 +30,7 @@ export class AuthenticationService {
       );
   }
 
-  logout() {
+  public logout() {
     return this._httpClient
       .post(this._config.getLogoutUrl(), null, {
         observe: 'response',

@@ -18,7 +18,6 @@ export class UserStatisticsComponent implements OnInit, OnDestroy {
   public isAmountEditMode: boolean = false;
   public amountForm!: FormGroup;
   public amountCtrl!: FormControl;
-  public user$!: Observable<IUserStatisticsResponse>;
   public user!: IUserStatisticsResponse;
   public startDate!: Date;
   public endDate!: Date;
@@ -32,16 +31,18 @@ export class UserStatisticsComponent implements OnInit, OnDestroy {
   public userSubscription!: Subscription;
   protected readonly END = END;
 
+  public get categories(): Observable<ISpendingCategoryResponse[]> {
+    return this.categories$.asObservable();
+  }
+
   public ngOnInit(): void {
-    this.user$ = this.userService.userStatistics$;
-    this.userSubscription = this.userService.getUserStatistics();
-    this.user$.subscribe({
-      next: (data) => {
+    this.userSubscription = this.userService.userStatistics$.subscribe({
+      next: (data: IUserStatisticsResponse) => {
         this.user = data;
-        this.categories$.emit(data.spendingCategories);
+        this.categories$.emit(this.user.spendingCategories);
 
         const userAmountMaxValue = 1000000000;
-        this.amountCtrl = new FormControl(data.amount, [
+        this.amountCtrl = new FormControl(this.user.amount, [
           Validators.required,
           Validators.min(-userAmountMaxValue),
           Validators.max(userAmountMaxValue),
@@ -51,6 +52,8 @@ export class UserStatisticsComponent implements OnInit, OnDestroy {
         });
       },
     });
+
+    this.userService.getUserStatistics();
   }
 
   public constructor(
@@ -89,10 +92,6 @@ export class UserStatisticsComponent implements OnInit, OnDestroy {
         this.userService.getUserStatistics();
       }
     });
-  }
-
-  public get categories(): Observable<ISpendingCategoryResponse[]> {
-    return this.categories$.asObservable();
   }
 
   public onSubmitAmountUpdate() {

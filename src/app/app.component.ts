@@ -15,8 +15,9 @@ import { AuthenticationService } from './modules/authentication/services/authent
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'easy-tracker';
-  constructor(
+  public title = 'easy-tracker';
+
+  public constructor(
     private authService: AuthenticationService,
     router: Router,
     private spinner: NgxSpinnerService,
@@ -26,11 +27,11 @@ export class AppComponent {
     });
   }
 
-  get isUserLoggedIn() {
+  public get isUserLoggedIn() {
     return this.authService.isLoggedIn();
   }
 
-  navigationInterceptor(event: any): void {
+  public navigationInterceptor(event: any): void {
     if (event instanceof NavigationStart) {
       this.spinner.show();
     } else if (event instanceof NavigationEnd) {
