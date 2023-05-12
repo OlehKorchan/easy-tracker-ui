@@ -49,6 +49,10 @@ export class ConfigurationService {
     return environment.apiUrl + 'spendings';
   }
 
+  public getPredictionsUrl(): string {
+    return environment.apiUrl + 'currency-prediction';
+  }
+
   public getUserTokenSessionKey(): string {
     return 'user_token';
   }

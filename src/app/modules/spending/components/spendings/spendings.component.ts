@@ -10,7 +10,7 @@ import { CurrencyCodes } from '../../../../shared/models/currency-codes';
 })
 export class SpendingsComponent implements OnInit {
   public spendingsList: ISpendingResponse[] = [];
-  public displayedColumns: string[] = ['amount', 'comment', 'category', 'action'];
+  public displayedColumns: string[] = ['amount', 'comment', 'category', 'date', 'action'];
 
   public constructor(private spendingService: SpendingService) {}
 

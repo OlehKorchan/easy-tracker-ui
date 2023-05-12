@@ -56,15 +56,38 @@
                           color="primary"
                           class="w-auto"
                 >
-                    {{ currencyBalance.amount | currency: userService.convertCurrencyCodeToString(
-                    currencyBalance.currency) }}
+                  {{ currencyBalance.amount | currency: userService.convertCurrencyCodeToString(
+                  currencyBalance.currency) }}
                 </mat-chip>
             </mat-chip-list>
         </div>
     </mat-card-content>
-    <mat-card-actions>
-        <button mat-button (click)="openIncomeForm()">Add income</button>
-        <button mat-button (click)="openSpendingForm()">Add expenses</button>
-    </mat-card-actions>
+  <mat-card-actions>
+    <button (click)="openIncomeForm()" mat-button>Add income</button>
+    <button (click)="openSpendingForm()" mat-button>Add expenses</button>
+  </mat-card-actions>
+</mat-card>
+<mat-card class="mb-3">
+  <mat-card-title>
+    Filter by dates
+  </mat-card-title>
+  <mat-card-content>
+    <mat-form-field appearance="fill">
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input [rangePicker]="rangePicker">
+        <input [(ngModel)]="startDate" matStartDate placeholder="Start date">
+        <input [(ngModel)]="endDate" matEndDate placeholder="End date">
+      </mat-date-range-input>
+      <mat-datepicker-toggle [for]="rangePicker" matIconSuffix></mat-datepicker-toggle>
+      <mat-date-range-picker #rangePicker>
+        <mat-date-range-picker-actions>
+          <button mat-button matDateRangePickerCancel>Cancel</button>
+          <button (click)="filterByDate()" color="primary" mat-raised-button
+                  matDateRangePickerApply>Apply
+          </button>
+        </mat-date-range-picker-actions>
+      </mat-date-range-picker>
+    </mat-form-field>
+  </mat-card-content>
 </mat-card>
 <app-spendings-chart [categories]="categories"></app-spendings-chart>

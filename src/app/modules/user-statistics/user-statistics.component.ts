@@ -1,12 +1,14 @@
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ISpendingCategoryResponse } from '../category/models/spending-category-response';
-import { Component, OnDestroy, OnInit, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subscription } from 'rxjs';
 import { IncomeFormComponent } from '../income/components/income-form/income-form.component';
 import { SpendingFormComponent } from '../spending/components/spending-form/spending-form.component';
 import { IUserStatisticsResponse } from './models/user-statistics-response';
 import { UserService } from './services/user.service';
+import { END } from '@angular/cdk/keycodes';
+import { SpendingService } from '../spending/services/spending.service';
 
 @Component({
   templateUrl: './user-statistics.component.html',
@@ -18,6 +20,8 @@ export class UserStatisticsComponent implements OnInit, OnDestroy {
   public amountCtrl!: FormControl;
   public user$!: Observable<IUserStatisticsResponse>;
   public user!: IUserStatisticsResponse;
+  public startDate!: Date;
+  public endDate!: Date;
 
   public categories$: EventEmitter<ISpendingCategoryResponse[]> = new EventEmitter<
     ISpendingCategoryResponse[]
@@ -26,14 +30,7 @@ export class UserStatisticsComponent implements OnInit, OnDestroy {
   public allCurrencies: string[];
 
   public userSubscription!: Subscription;
-
-  public constructor(
-    private fb: FormBuilder,
-    public userService: UserService,
-    public dialog: MatDialog,
-  ) {
-    this.allCurrencies = userService.getCurrenciesList();
-  }
+  protected readonly END = END;
 
   public ngOnInit(): void {
     this.user$ = this.userService.userStatistics$;
@@ -54,6 +51,15 @@ export class UserStatisticsComponent implements OnInit, OnDestroy {
         });
       },
     });
+  }
+
+  public constructor(
+    private fb: FormBuilder,
+    public userService: UserService,
+    public spendingService: SpendingService,
+    public dialog: MatDialog,
+  ) {
+    this.allCurrencies = userService.getCurrenciesList();
   }
 
   public toggleAmountEditMode() {
@@ -102,5 +108,9 @@ export class UserStatisticsComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy(): void {
     this.userSubscription.unsubscribe();
+  }
+
+  public filterByDate(): void {
+    this.userService.getUserStatistics(this.startDate, this.endDate);
   }
 }

@@ -51,9 +51,15 @@ export class UserService {
     return this._userMainCurrency$.asObservable();
   }
 
-  public getUserStatistics() {
+  public getUserStatistics(startDate?: Date, endDate?: Date) {
+    let params = {};
+
+    if (startDate && endDate) {
+      params = { startDate: startDate.toISOString(), endDate: endDate.toISOString() };
+    }
+
     return this.httpClient
-      .get<IUserStatisticsResponse>(this.config.getUserStatisticsUrl())
+      .get<IUserStatisticsResponse>(this.config.getUserStatisticsUrl(), { params: params })
       .subscribe({
         next: (data: IUserStatisticsResponse) => {
           this._data = data;

@@ -13,6 +13,7 @@ import { LayoutRoutingModule } from './layout-routing.module';
 import { MaterialModule } from 'src/app/shared/material.module';
 import { AuthenticationModule } from '../authentication/authentication.module';
 import { CurrencySelectAlertComponent } from './components/currency-select-alert/currency-select-alert.component';
+import { CurrencyPredictionModule } from '../currency-prediction/currency-prediction.module';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { CurrencySelectAlertComponent } from './components/currency-select-alert
     CategoryModule,
     UserStatisticsModule,
     LayoutRoutingModule,
+    CurrencyPredictionModule,
   ],
   exports: [SidenavComponent],
 })

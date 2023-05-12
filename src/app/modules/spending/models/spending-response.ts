@@ -7,4 +7,5 @@ export interface ISpendingResponse extends IResponse {
   comment: string;
   currency: CurrencyCodes;
   categoryName: string;
+  dateOfSpending: Date;
 }

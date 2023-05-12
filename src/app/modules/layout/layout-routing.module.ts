@@ -11,6 +11,13 @@ const routes: Routes = [
     loadChildren: () => import('../error/error.module').then((imp) => imp.ErrorModule),
   },
   {
+    path: 'prediction',
+    loadChildren: () =>
+      import('../currency-prediction/currency-prediction.module').then(
+        (imp) => imp.CurrencyPredictionModule,
+      ),
+  },
+  {
     path: '',
     redirectTo: 'welcome/index',
     pathMatch: 'full',

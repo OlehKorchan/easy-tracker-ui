@@ -1,23 +1,24 @@
 <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav
-        *ngIf="isUserLoggedIn"
-        #sideNav
-        [mode]="isScreenSmall ? 'over' : 'side'"
-        [opened]="!isScreenSmall"
-        class="sidenav mat-elevation-z10"
-    >
-        <mat-toolbar color="primary">Menu</mat-toolbar>
-        <mat-list>
-            <a mat-list-item [routerLink]="['/user/statistics']">Statistics</a>
-            <a mat-list-item [routerLink]="['/income/history']">Income history</a>
-            <a mat-list-item [routerLink]="['/category/all']">Categories</a>
-            <a mat-list-item [routerLink]="['/spending/all']">Expenses</a>
-        </mat-list>
-    </mat-sidenav>
-    <mat-sidenav-content>
-        <app-toolbar (toggleSidenav)="toggleSidenav()"></app-toolbar>
-        <div class="container">
-            <router-outlet></router-outlet>
-        </div>
-    </mat-sidenav-content>
+  <mat-sidenav
+    #sideNav
+    *ngIf="isUserLoggedIn"
+    [mode]="isScreenSmall ? 'over' : 'side'"
+    [opened]="!isScreenSmall"
+    class="sidenav mat-elevation-z10"
+  >
+    <mat-toolbar color="primary">Menu</mat-toolbar>
+    <mat-list>
+      <a [routerLink]="['/user/statistics']" mat-list-item>Statistics</a>
+      <a [routerLink]="['/income/history']" mat-list-item>Income history</a>
+      <a [routerLink]="['/category/all']" mat-list-item>Categories</a>
+      <a [routerLink]="['/spending/all']" mat-list-item>Expenses</a>
+      <a [routerLink]="['/prediction/next-week']" mat-list-item>Rate prediction</a>
+    </mat-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-toolbar (toggleSidenav)="toggleSidenav()"></app-toolbar>
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
 </mat-sidenav-container>

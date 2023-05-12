@@ -6,6 +6,7 @@ import { IncomeModule } from '../income/income.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { UserStatisticsRoutingModule } from './user-statistics-routing.module';
 import { MaterialModule } from 'src/app/shared/material.module';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [UserStatisticsComponent],
@@ -16,6 +17,7 @@ import { MaterialModule } from 'src/app/shared/material.module';
     IncomeModule,
     UserStatisticsRoutingModule,
     CategoryModule,
+    MatDatepickerModule,
   ],
 })
 export class UserStatisticsModule {}
