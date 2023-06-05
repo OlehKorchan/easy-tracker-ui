@@ -7,7 +7,6 @@ import { IncomeFormComponent } from '../income/components/income-form/income-for
 import { SpendingFormComponent } from '../spending/components/spending-form/spending-form.component';
 import { IUserStatisticsResponse } from './models/user-statistics-response';
 import { UserService } from './services/user.service';
-import { END } from '@angular/cdk/keycodes';
 import { SpendingService } from '../spending/services/spending.service';
 
 @Component({
@@ -29,7 +28,6 @@ export class UserStatisticsComponent implements OnInit, OnDestroy {
   public allCurrencies: string[];
 
   public userSubscription!: Subscription;
-  protected readonly END = END;
 
   public get categories(): Observable<ISpendingCategoryResponse[]> {
     return this.categories$.asObservable();

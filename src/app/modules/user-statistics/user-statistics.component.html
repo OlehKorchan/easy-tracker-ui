@@ -1,24 +1,24 @@
-<mat-card *ngIf="user.amount; else loader" class="mb-3">
-    <mat-card-title>
-        Overall amount:
-    </mat-card-title>
-    <mat-card-content>
-        <div class="mb-3">
-            <ng-container *ngIf="!isAmountEditMode; else editMode">
-                <mat-chip selected color="accent" (click)="toggleAmountEditMode()">
-                    {{ user.amount | currency: userService.convertCurrencyCodeToString(
-                    user.mainCurrency) }}
-                </mat-chip>
-            </ng-container>
-            <ng-template #editMode>
-                <form
-                    [formGroup]="amountForm"
-                    (ngSubmit)="onSubmitAmountUpdate()"
-                >
-                    <mat-form-field appearance="fill">
-                        <input
-                            formControlName="amount"
-                            matInput
+<mat-card *ngIf="user.amount === 0 || user.amount; else loader" class="mb-3">
+  <mat-card-title>
+    Overall amount:
+  </mat-card-title>
+  <mat-card-content>
+    <div class="mb-3">
+      <ng-container *ngIf="!isAmountEditMode; else editMode">
+        <mat-chip (click)="toggleAmountEditMode()" color="accent" selected>
+          {{ user.amount | currency: userService.convertCurrencyCodeToString(
+          user.mainCurrency) }}
+        </mat-chip>
+      </ng-container>
+      <ng-template #editMode>
+        <form
+          (ngSubmit)="onSubmitAmountUpdate()"
+          [formGroup]="amountForm"
+        >
+          <mat-form-field appearance="fill">
+            <input
+              formControlName="amount"
+              matInput
                             placeholder="amount"
                             currencyMask
                             [options]="{
